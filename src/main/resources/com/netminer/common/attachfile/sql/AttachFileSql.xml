@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="attachFileDAO">
+
+	<insert id="attachFileDAO.create" parameterClass="com.netminer.common.attachfile.model.AttachFileModel">
+
+		<selectKey keyProperty="bf_no" resultClass="int">
+			SELECT 
+				IFNULL(MAX(bf_no), 0) + 1 AS bf_no 
+			FROM g4_board_file 
+			WHERE bo_table = #bo_table# 
+			AND wr_id = #wr_id#
+		</selectKey>
+		
+		INSERT INTO g4_board_file
+			(
+			  bo_table
+			, wr_id
+			, bf_no
+			, bf_source
+			, bf_file
+			, bf_download
+			, bf_content
+			, bf_filesize
+			, bf_width
+			, bf_height
+			, bf_type
+			, bf_datetime
+			)
+		VALUES
+			(
+			#bo_table#
+			,#wr_id#
+			,#bf_no#
+			,#bf_source#
+			,#bf_file#
+			,#bf_download#
+			,#bf_content#
+			,#bf_filesize#
+			,#bf_width#
+			,#bf_height#
+			,#bf_type#
+			,now()
+			 )			
+	</insert>
+
+	<select id="attachFileDAO.readList" parameterClass="com.netminer.common.attachfile.model.AttachFileModel" resultClass="com.netminer.common.attachfile.model.AttachFileModel">
+		SELECT
+			  bo_table
+			, wr_id
+			, bf_no
+			, bf_source
+			, bf_file
+			, bf_download
+			, bf_content
+			, bf_filesize
+			, bf_width
+			, bf_height
+			, bf_type
+			, bf_datetime
+		FROM g4_board_file
+		WHERE 1 = 1
+		AND bo_table = #bo_table#
+		AND wr_id = #wr_id#
+	</select>
+
+	<delete id="attachFileDAO.delete" parameterClass="com.netminer.common.attachfile.model.AttachFileModel">
+			DELETE FROM 
+				g4_board_file
+			WHERE 1 = 1
+			AND bo_table = #bo_table#
+			AND wr_id = #wr_id#
+			
+		<isNotEmpty property="bf_no">
+			AND bf_no = #bf_no#
+		</isNotEmpty>
+	</delete>
+
+</sqlMap>

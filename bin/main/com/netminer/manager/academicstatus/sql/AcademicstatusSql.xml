@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AcademicstatusDao">
+
+	<insert id="AcademicstatusDao.create" parameterClass="com.netminer.manager.academicstatus.model.AcademicstatusModel">
+		INSERT INTO academicstatus
+		(
+			  oid                    
+			, name                   
+			, degree                        
+			, major                 
+			, url               
+			, imagepath          
+			, orgname         
+			, confirmed  
+			, confirmdate   
+			, instructor    
+			, course            
+			, courseUrl    
+			, year
+			, season
+		) VALUES (
+			#oid#
+			,#name#
+			,#degree#
+			,#major#
+			,#url#
+			,#imagepath#
+			,#orgname#
+			,#confirmed#
+			,#confirmdate#
+			,#instructor#
+			,#course#
+			,#courseUrl#
+			,#year#
+			,#season#
+		)
+	</insert>
+
+	<select id="AcademicstatusDao.read" 
+		parameterClass="com.netminer.manager.academicstatus.model.AcademicstatusModel" 
+		resultClass="com.netminer.manager.academicstatus.model.AcademicstatusModel">
+		SELECT 
+			 id
+			, oid                    
+			, name                   
+			, degree                        
+			, major                 
+			, url               
+			, imagepath
+			, orgname
+			, confirmed
+			, DATE_FORMAT(confirmdate, '%Y-%m-%d') AS confirmdate
+			, instructor    
+			, course            
+			, courseUrl    
+			, year
+			, season
+		FROM academicstatus
+		WHERE 1 = 1
+		AND oid = #oid#
+	</select>
+
+
+	<update id="AcademicstatusDao.update" parameterClass="com.netminer.manager.academicstatus.model.AcademicstatusModel">
+		UPDATE
+			academicstatus
+		SET
+			confirmed =  'Y' 
+			, confirmdate = DATE_FORMAT(NOW(),'%Y%m%d')
+		WHERE 1 = 1
+		AND oid = #oid#
+	</update>
+
+	<delete id="AcademicstatusDao.delete" parameterClass="com.netminer.manager.academicstatus.model.AcademicstatusModel">
+		DELETE FROM
+			academicstatus
+		WHERE 1 = 1
+		AND oid = #oid#
+	</delete>
+
+</sqlMap>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+
+	<sqlMap resource="com/netminer/common/board/sql/BoardSql.xml" />
+	<sqlMap resource="com/netminer/common/attachfile/sql/AttachFileSql.xml" />
+	
+	<sqlMap resource="com/netminer/manager/admin/sql/AdminSql.xml" />
+	<sqlMap resource="com/netminer/manager/nmuser/sql/NmUserSql.xml" />
+	<sqlMap resource="com/netminer/manager/sale/sql/SaleSql.xml" />
+	<sqlMap resource="com/netminer/manager/settlement/sql/SettlementSql.xml" />
+	<sqlMap resource="com/netminer/manager/license/sql/LicenseSql.xml" />
+	<sqlMap resource="com/netminer/manager/edition/sql/EditionSql.xml" />
+	<sqlMap resource="com/netminer/manager/productpackage/sql/ProductpackageSql.xml" />
+	<sqlMap resource="com/netminer/manager/productpackage/sql/PackageSql.xml" />
+	<sqlMap resource="com/netminer/manager/academicstatus/sql/AcademicstatusSql.xml" />
+	<sqlMap resource="com/netminer/manager/payment/sql/PaymentSql.xml" />
+	<sqlMap resource="com/netminer/manager/extension/sql/ExtensionSql.xml" />
+	
+	<sqlMap resource="com/netminer/download_buy/buy/sql/BuySql.xml" />
+	
+</sqlMapConfig>

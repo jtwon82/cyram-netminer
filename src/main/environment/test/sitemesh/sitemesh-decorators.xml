@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/jsp/common/sitemesh">
+
+	<!-- 제외할 패턴 -->
+	<excludes>
+		<pattern>*.html</pattern>
+		<pattern>/common/attachfile/attachFile-read.do*</pattern>
+		<pattern>/common/attachfile/attachFile_proof-read.do*</pattern>
+		<pattern>/common/attachfile/attachFile_download_image-read.do*</pattern>
+		<pattern>/common/attachfile/attachFile_download_storage-read.do*</pattern>
+		<pattern>/common/error/error*.*</pattern>
+		<pattern>*-popup.do</pattern>
+		<pattern>*-popup.do*</pattern>
+	</excludes>
+
+	<!-- Ajax 패턴 -->
+	<decorator name="ajax" page="panel.jsp">
+		<pattern>*-ajax.do</pattern>
+		<pattern>*-create.do</pattern>
+		<pattern>*-update.do</pattern>
+		<pattern>*-delete.do</pattern>
+ 
+		<pattern>/manager/*-create.do</pattern>
+		<pattern>/manager/*-update.do</pattern>
+		<pattern>/manager/*-delete.do</pattern>
+	</decorator>
+
+	<!-- Main -->
+	<decorator name="main" page="main.jsp">
+		<pattern>/main/main-read.do</pattern>
+	</decorator>
+
+	<!-- Product -->
+	<decorator name="default_product" page="default_product.jsp">
+		<pattern>/download_buy/license_price/*.do</pattern>
+		<pattern>/aboutus/publications.do</pattern>
+		<pattern>/product/*.do</pattern>
+	</decorator>
+
+	<!-- 기본 패턴 -->
+	<decorator name="default_manager" page="default_manager.jsp">
+		<pattern>/manager/*.do</pattern>
+		<pattern>/login/manager_login-read.do</pattern>
+	</decorator>
+
+	<decorator name="default" page="default.jsp">
+		<pattern>/product/history-readList.do</pattern>
+		<pattern>*.do</pattern>
+	</decorator>
+
+	<decorator name="panel" page="panel.jsp" />
+
+</decorators>

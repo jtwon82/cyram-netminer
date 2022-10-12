@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="SettlementDao">
+
+	<sql id="settlementListWhere">
+		AND s_createdate BETWEEN CONCAT(#s_year#, #s_month#, #s_day#, '000000') AND CONCAT(#e_year#, #e_month#, #e_day#, '595959')
+
+		<isNotEmpty property="searchWord">
+			<isEqual property="searchKind" compareValue="s_sid">
+		     	AND s_sid LIKE CONCAT('%', #searchWord#, '%')
+			</isEqual>
+			<isEqual property="searchKind" compareValue="s_orderid">
+		     	AND s_orderid LIKE CONCAT('%', #searchWord#, '%')
+			</isEqual>
+			<isEqual property="searchKind" compareValue="s_product">
+		     	AND s_product LIKE CONCAT('%', #searchWord#, '%')
+			</isEqual>
+			<isEqual property="searchKind" compareValue="s_poinvoice">
+		     	AND s_poinvoice LIKE CONCAT('%', #searchWord#, '%')
+			</isEqual>
+			<isEqual property="searchKind" compareValue="s_memo">
+		     	AND s_memo LIKE CONCAT('%', #searchWord#, '%')
+			</isEqual>
+		</isNotEmpty>
+	</sql>
+	
+	<insert id="SettlementDao.create" parameterClass="com.netminer.manager.settlement.model.SettlementModel">
+		INSERT INTO settlement_new
+		(
+			  s_sid 
+			, s_spw 
+			, s_orderid 
+			, s_product 
+			, s_poinvoice 
+			, s_licenseinfo_1 
+			, s_licenseinfo_2 
+			, s_licenseinfo_3 
+			, s_memo 
+			, s_price 
+			, s_location 
+			, s_paidstatus 
+			, s_createdate 
+		) VALUES (
+			 #s_sid#
+			,#s_spw#
+			,#s_orderid#
+			,#s_product#
+			,#s_poinvoice#
+			,#s_licenseinfo_1#
+			,#s_licenseinfo_2#
+			,#s_licenseinfo_3#
+			,#s_memo#
+			,#s_price#
+			,#s_location#
+			,#s_paidstatus#
+			,DATE_FORMAT(NOW(),'%Y%m%d%H%m%s')
+		)
+	</insert>
+
+	<select id="SettlementDao.readTotal" 
+		parameterClass="com.netminer.manager.settlement.model.SettlementModel" 
+		resultClass="int">
+		SELECT 
+			COUNT(s_sid)
+		FROM settlement_new
+		WHERE 1 = 1
+
+		<include refid="settlementListWhere"/>
+	</select>
+
+	<select id="SettlementDao.readList" 
+		parameterClass="com.netminer.manager.settlement.model.SettlementModel" 
+		resultClass="com.netminer.manager.settlement.model.SettlementModel">
+		SELECT
+			  s_idx
+			, s_sid 
+			, s_spw 
+			, s_orderid 
+			, s_product 
+			, s_poinvoice 
+			, s_licenseinfo_1 
+			, s_licenseinfo_2 
+			, s_licenseinfo_3 
+			, s_memo 
+			, s_price 
+			, CASE s_location
+				WHEN 'domestic' THEN '국내'
+			  	ELSE '해외'
+			  	END AS s_location
+			, s_paidstatus 
+			, DATE_FORMAT(s_createdate, '%Y-%m-%d %H:%m:%s') AS s_createdate
+		FROM settlement_new
+		
+		WHERE 1 = 1
+
+		<include refid="settlementListWhere"/>
+		
+		ORDER BY s_idx DESC
+		LIMIT #pageNo#, #listCount#
+	</select>
+
+	<select id="SettlementDao.read"
+		parameterClass="com.netminer.manager.settlement.model.SettlementModel" 
+		resultClass="com.netminer.manager.settlement.model.SettlementModel">
+		SELECT
+			  s_idx 
+			, s_sid 
+			, s_spw 
+			, s_orderid 
+			, s_product 
+			, s_poinvoice 
+			, s_licenseinfo_1 
+			, s_licenseinfo_2 
+			, s_licenseinfo_3 
+			, s_memo 
+			, s_price 
+			, s_location 
+			, s_paidstatus 
+			, DATE_FORMAT(s_createdate, '%Y-%m-%d %H:%m:%s') AS s_createdate
+		FROM settlement_new
+		WHERE 1 = 1
+		
+		<isNotEmpty property="s_idx">
+		AND s_idx = #s_idx#
+		</isNotEmpty>
+
+		<isNotEmpty property="s_sid">
+		AND s_sid = #s_sid# AND s_spw = #s_spw#
+		</isNotEmpty>
+
+	</select>
+
+	<update id="SettlementDao.update" parameterClass="com.netminer.manager.settlement.model.SettlementModel">
+		UPDATE 
+			settlement_new
+		SET
+			  s_sid				 = #s_sid# 
+			, s_spw 			 = #s_spw# 
+			, s_orderid 		 = #s_orderid# 
+			, s_product 		 = #s_product# 
+			, s_poinvoice 		 = #s_poinvoice# 
+			, s_licenseinfo_1 	 = #s_licenseinfo_1# 
+			, s_licenseinfo_2 	 = #s_licenseinfo_2# 
+			, s_licenseinfo_3 	 = #s_licenseinfo_3# 
+			, s_memo 			 = #s_memo# 
+			, s_price 			 = #s_price# 
+			, s_location 		 = #s_location# 
+			, s_paidstatus 		 = #s_paidstatus# 
+		WHERE 1 = 1
+		AND s_idx = #s_idx#
+	</update>
+
+	<update id="SettlementDao.status.update" parameterClass="com.netminer.manager.settlement.model.SettlementModel">
+		UPDATE 
+			settlement_new
+		SET
+			s_paidstatus 		 = '결제완료' 
+		WHERE 1 = 1
+		AND s_idx = #s_idx#
+	</update>
+
+	<delete id="SettlementDao.delete" parameterClass="com.netminer.manager.settlement.model.SettlementModel">
+		DELETE FROM
+			settlement_new
+		WHERE 1 = 1
+		AND s_idx = #s_idx#
+	</delete>
+
+</sqlMap>

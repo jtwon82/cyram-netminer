@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="SaleDao">
+
+	<sql id="saleListWhere">
+	
+	<isEmpty property="searchWord">
+	AND A.saledate BETWEEN CONCAT(#s_year#, #s_month#, #s_day#) AND CONCAT(#e_year#, #e_month#, #e_day#)
+
+		<isEqual property="licenseKeyYN" compareValue="Y">
+	     	AND A.serialnum = '' AND A.replacedid = -1
+		</isEqual>
+		
+		<isEqual property="shippingYN" compareValue="Y">
+	     	AND A.shipping = 1 AND A.isshipped = 0 AND A.replacedid = -1
+		</isEqual>
+	
+	
+	</isEmpty>		
+		<isNotEmpty property="searchWord">
+		
+		
+	<isEqual property="licenseKeyYN" compareValue="Y">
+	     	AND A.serialnum = '' AND A.replacedid = -1
+		</isEqual>
+		
+		<isEqual property="shippingYN" compareValue="Y">
+	     	AND A.shipping = 1 AND A.isshipped = 0 AND A.replacedid = -1
+		</isEqual>		
+		
+			<isEqual property="searchKind" compareValue="loginid">
+		     	AND A.loginid LIKE CONCAT('%', #searchWord#, '%')
+			</isEqual>
+			<isEqual property="searchKind" compareValue="productserial">
+		     	AND A.productserial LIKE CONCAT('%', #searchWord#, '%')
+			</isEqual>
+			<isEqual property="searchKind" compareValue="oid">
+		     	AND A.oid LIKE CONCAT('%', #searchWord#, '%')
+			</isEqual>
+			<isEqual property="searchKind" compareValue="saleid">
+		     	AND A.saleid LIKE CONCAT('%', #searchWord#, '%')
+			</isEqual>
+			<isEqual property="searchKind" compareValue="fullname_orgname">
+		     	AND (
+		     		A.fullname LIKE CONCAT('%', #searchWord#, '%')
+		     		OR A.orgname LIKE CONCAT('%', #searchWord#, '%')
+		     		)
+			</isEqual>
+		</isNotEmpty>
+	</sql>
+
+	<insert id="SaleDao.tutorial.create" parameterClass="com.netminer.download_buy.download.model.DownloadModel">
+		INSERT INTO tutorial_mail
+		(
+			customer,
+			language
+		) VALUES (
+			#sessionId#,
+			#language#
+		)
+	</insert>
+	
+	<insert id="SaleDao.extensions.create.fcbk" parameterClass="com.netminer.manager.extension.model.ExtensionQueryModel">
+		INSERT INTO extensions
+		(
+			productid
+			, name
+			, expiredate
+			, registerdate
+		) VALUES (
+			#productSerial#
+			, "fcbk"
+			, #expireDateFormat#
+			, now()
+		)
+	</insert>
+	
+	<insert id="SaleDao.extensions.create.twtr" parameterClass="com.netminer.manager.extension.model.ExtensionQueryModel">
+		INSERT INTO extensions
+		(
+			productid
+			, name
+			, expiredate
+			, registerdate
+		) VALUES (
+			#productSerial#
+			, "twtr"
+			, #expireDateFormat#
+			, now()
+		)
+	</insert>
+
+	<insert id="SaleDao.extensions.record" parameterClass="com.netminer.download_buy.download.model.DownloadModel">
+		INSERT INTO extension_download
+		(
+			customer
+			, extension_name
+			, downloaddate
+		) VALUES (
+			#sessionId#
+			, #fileName#
+			, now() 
+		)
+	</insert>
+
+	<insert id="SaleDao.extensions.create.ytub" parameterClass="com.netminer.manager.extension.model.ExtensionQueryModel">
+		INSERT INTO extensions
+		(
+			productid
+			, name
+			, expiredate
+			, registerdate
+		) VALUES (
+			#productSerial#
+			, "ytub"
+			, #expireDateFormat#
+			, now()
+		)
+	</insert>
+
+	<insert id="SaleDao.extensions.create.isgm" parameterClass="com.netminer.manager.extension.model.ExtensionQueryModel">
+		INSERT INTO extensions
+		(
+			productid
+			, name
+			, expiredate
+			, registerdate
+		) VALUES (
+			#productSerial#
+			, "isgm"
+			, #expireDateFormat#
+			, now()
+		)
+	</insert>
+	
+	<insert id="SaleDao.extensions.create.bibl" parameterClass="com.netminer.manager.extension.model.ExtensionQueryModel">
+		INSERT INTO extensions
+		(
+			productid
+			, name
+			, expiredate
+			, registerdate
+		) VALUES (
+			#productSerial#
+			, "bibl"
+			, #expireDateFormat#
+			, now()
+		)
+	</insert>
+	
+	<insert id="SaleDao.create" parameterClass="com.netminer.manager.sale.model.SaleModel">
+		INSERT INTO sale_new
+		(
+			  loginid                   
+			, oid                        
+			, filename                 
+			, productid
+			, edition               
+			, licenseusage          
+			, licenseusagefactor  
+			, licenseterm            
+			, licensetermfactor    
+			, licensesize            
+			, licensesizefactor    
+			, serialnum
+			, productserial          
+			, hardwarekey          
+			, replacedid
+			, saledate
+			, saletime
+			, expiredate
+			, shipping                 
+			, isshipped               
+			, shippingid              
+			, academicauth        
+			, fullname                 
+			, orgname                
+			, address1               
+			, address2               
+			, city                       
+			, state                     
+			, zipcode                 
+			, country                  
+			, phone                    
+			, email                     
+			, on_offline               
+			, note                      
+			, wintype                  
+			, offlinecode
+			, manual
+			, education
+			,registercount
+			,registered
+		) VALUES (
+			#loginid#
+			,#oid#
+			,#filename#
+			,#productid#
+			,#edition#
+			,#licenseusage#
+			,#licenseusagefactor#
+			,#licenseterm#
+			,#licensetermfactor#
+			,#licensesize#
+			,#licensesizefactor#
+			,#serialnum#
+			,#productserial#
+			,#hardwarekey#
+			,#replacedid#
+			,DATE_FORMAT(NOW(),'%Y%m%d')
+			,DATE_FORMAT(NOW(),'%H%m%s')
+			,#expiredate#
+			,#shipping#
+			,#isshipped#
+			,#shippingid#
+			,#academicauth#
+			,#fullname#
+			,#orgname#
+			,#address1#
+			,#address2#
+			,#city#
+			,#state#
+			,#zipcode#
+			,#country#
+			,#phone#
+			,#email#
+			,#on_offline#
+			,#note#
+			,#wintype#
+			,#offlinecode#
+			,#manual#
+			,#education#
+			,#registercount#
+			,#registered#
+		)
+		
+		<selectKey keyProperty="saleid" resultClass="string">
+			SELECT last_insert_id()
+		</selectKey>
+	</insert>
+
+	<insert id="SaleDao.salepackage.create" parameterClass="com.netminer.manager.sale.model.SalePackageModel">
+		INSERT INTO salepackage
+		(
+			  saleid                   
+			, productpackageid                        
+			, krwprice                 
+			, usdprice
+		) VALUES (
+			#saleid#
+			,#productpackageid#
+			,#krwprice#
+			,#usdprice#
+		)
+	</insert>
+	
+	<insert id="SaleDao.saleextension.create" parameterClass="com.netminer.manager.extension.model.ExtensionQueryModel">
+		INSERT INTO sale_extension (
+			productserial
+			, extensionid
+			, priceusd
+			, pricekrw
+			, expiredate
+		) SELECT
+			#productSerial# as productserial
+			, extensionid
+			, priceusd
+			, pricekrw
+			, #expireDate# as expiredate
+		FROM
+			extension_info
+		WHERE 1=1
+			AND extensionid = #id#
+			AND licenseusage = #licenseUsage#
+	</insert>
+
+	<select id="SaleDao.readTotal" 
+		parameterClass="com.netminer.manager.sale.model.SaleModel" 
+		resultClass="int">
+		SELECT 
+			COUNT(A.saleid)
+		FROM sale_new A
+		LEFT JOIN licenseusage B ON A.licenseusage = B.id
+		LEFT JOIN licenseterm C ON A.licenseterm = C.id
+		LEFT JOIN licensesize D ON A.licensesize = D.id
+		WHERE 1 = 1
+
+		<include refid="saleListWhere"/>
+	</select>
+
+	<select id="SaleDao.readList" 
+		parameterClass="com.netminer.manager.sale.model.SaleModel" 
+		resultClass="com.netminer.manager.sale.model.SaleModel">
+		SELECT 
+			  A.saleid                    
+			, A.loginid                   
+			, A.oid                        
+			, A.filename                 
+			, A.productid
+			, A.edition               
+			, B.label AS licenseusage_name          
+			, A.licenseusagefactor  
+			, C.label AS licenseterm_name            
+			, A.licensetermfactor    
+			, D.label AS licensesize_name            
+			, A.licensesizefactor    
+			, CASE A.serialnum
+				WHEN '' THEN '미발급'
+				ELSE '발급'
+			  END AS serialnum
+			, A.productserial          
+			, A.hardwarekey          
+			, CASE A.replacedid
+				WHEN '-1' THEN '최신'
+				ELSE A.replacedid
+			  END AS replacedid
+			, DATE_FORMAT(A.saledate, '%Y-%m-%d') AS saledate
+			, DATE_FORMAT(A.expiredate, '%Y-%m-%d') AS expiredate
+			, DATE_FORMAT(A.saletime, '%H:%m:%s') AS saletime
+			, A.shipping                 
+			, A.isshipped               
+			, A.shippingid              
+			, A.academicauth        
+			, A.fullname                 
+			, A.orgname                
+			, A.address1               
+			, A.address2               
+			, A.city                       
+			, A.state                     
+			, A.zipcode                 
+			, A.country                  
+			, A.phone                    
+			, A.email                     
+			, A.on_offline               
+			, A.note                      
+			, A.wintype                  
+			, A.offlinecode         
+			, A.manual    
+			, A.education
+			, A.registercount
+			, A.registered
+		FROM sale_new A
+		LEFT JOIN licenseusage B ON A.licenseusage = B.id
+		LEFT JOIN licenseterm C ON A.licenseterm = C.id
+		LEFT JOIN licensesize D ON A.licensesize = D.id
+		
+		WHERE 1 = 1
+
+		<include refid="saleListWhere"/>
+		
+		ORDER BY A.saleid DESC
+		LIMIT #pageNo#, #listCount#
+	</select>
+
+	<select id="SaleDao.readList.sessionid" 
+		parameterClass="com.netminer.manager.sale.model.SaleModel" 
+		resultClass="com.netminer.manager.sale.model.SaleModel">
+		SELECT
+			  A.saleid                    
+			, A.loginid                   
+			, A.oid                        
+			, A.filename                 
+			, A.productid
+			, A.edition               
+			, B.label AS licenseusage          
+			, A.licenseusagefactor  
+			, C.label AS licenseterm            
+			, A.licensetermfactor    
+			, D.label AS licensesize            
+			, A.licensesizefactor    
+			, A.serialnum
+			, A.productserial          
+			, A.hardwarekey          
+			, A.replacedid
+			, DATE_FORMAT(A.saledate, '%Y-%m-%d') AS saledate
+			, DATE_FORMAT(A.expiredate, '%Y-%m-%d') AS expiredate
+			, DATE_FORMAT(A.saletime, '%H:%m:%s') AS saletime
+			, A.shipping                 
+			, A.isshipped               
+			, A.shippingid              
+			, A.academicauth        
+			, A.fullname                 
+			, A.orgname                
+			, A.address1               
+			, A.address2               
+			, A.city                       
+			, A.state                     
+			, A.zipcode                 
+			, A.country                  
+			, A.phone                    
+			, A.email                     
+			, A.on_offline               
+			, A.note                      
+			, A.wintype                  
+			, A.offlinecode          
+			, A.manual   
+			, A.education
+			, A.registercount
+			, A.registered
+		FROM sale_new A
+		LEFT JOIN licenseusage B ON A.licenseusage = B.id
+		LEFT JOIN licenseterm C ON A.licenseterm = C.id
+		LEFT JOIN licensesize D ON A.licensesize = D.id
+		WHERE 1 = 1
+		AND A.loginid = #sessionId#
+		AND A.replacedid = -1
+		AND A.serialnum <![CDATA[<>]]> ''
+		ORDER BY saledate ASC, saletime ASC
+	</select>
+
+	<select id="SaleDao.readList.salePackage" 
+		parameterClass="com.netminer.manager.sale.model.SaleModel" 
+		resultClass="com.netminer.manager.sale.model.SalePackageModel">
+		SELECT 
+			  saleid                    
+			, productpackageid                   
+			, krwprice                        
+			, usdprice
+		FROM salepackage
+		WHERE 1 = 1
+		AND saleid = #saleid#
+		ORDER BY productpackageid ASC
+	</select>
+
+	<select id="SaleDao.read" 
+		parameterClass="com.netminer.manager.sale.model.SaleModel" 
+		resultClass="com.netminer.manager.sale.model.SaleModel">
+		SELECT 
+			  A.saleid                    
+			, A.loginid                   
+			, A.oid                        
+			, A.filename                 
+			, A.productid
+			, A.edition               
+            , E.label AS edition_name
+			, A.licenseusage          
+			, B.label AS licenseusage_name          
+			, A.licenseusagefactor  
+			, A.licenseterm            
+			, C.label AS licenseterm_name            
+			, A.licensetermfactor    
+			, A.licensesize            
+			, D.label AS licensesize_name            
+			, A.licensesizefactor    
+			, A.serialnum               
+			, A.productserial          
+			, A.hardwarekey          
+			, A.replacedid              
+			, A.saledate
+			, A.expiredate
+			, A.saletime
+			, A.shipping                 
+			, A.isshipped               
+			, A.shippingid              
+			, A.academicauth        
+			, A.fullname                 
+			, A.orgname                
+			, A.address1               
+			, A.address2               
+			, A.city                       
+			, A.state                     
+			, A.zipcode                 
+			, A.country                  
+			, A.phone                    
+			, A.email                     
+			, A.on_offline               
+			, A.note                      
+			, A.wintype                  
+			, A.offlinecode             
+			, A.manual
+			, A.education
+			, A.registercount
+			, A.registered
+		FROM sale_new A
+		LEFT JOIN licenseusage B ON A.licenseusage = B.id
+		LEFT JOIN licenseterm C ON A.licenseterm = C.id
+		LEFT JOIN licensesize D ON A.licensesize = D.id
+        LEFT JOIN edition E on A.edition = E.id
+		WHERE 1 = 1
+		AND A.saleid = #saleid#
+	</select>
+
+	<select id="SaleDao.read.next_productserial" 
+		resultClass="com.netminer.manager.sale.model.SaleModel">
+		SELECT 
+			MAX(cast(productserial as unsigned)) + 1 AS next_productserial
+		FROM sale_new
+		WHERE 1 = 1
+		AND productserial != '87954'
+	</select>
+
+	<select id="SaleDao.read.next_hardwarekey" 
+		parameterClass="com.netminer.manager.sale.model.SaleModel" 
+		resultClass="com.netminer.manager.sale.model.SaleModel">
+		SELECT 
+			*
+		FROM sale_new
+		WHERE 1 = 1
+		AND hardwarekey = #hardwarekey#
+	</select>
+
+	<update id="SaleDao.update" parameterClass="com.netminer.manager.sale.model.SaleModel">
+		UPDATE 
+			sale_new
+		SET
+			  loginid                    = #loginid#                                                   
+			, oid                         = #oid#                                                        
+			, filename                  = #filename#                                                 
+			, productid                = #productid#
+			, edition					= #edition#                                               
+			, licenseusage           = #licenseusage#                                          
+			, licenseusagefactor   = #licenseusagefactor#                                  
+			, licenseterm             = #licenseterm#                                            
+			, licensetermfactor     = #licensetermfactor#                                    
+			, licensesize             = #licensesize#                                            
+			, licensesizefactor     = #licensesizefactor#                                    
+			, serialnum	       = #serialnum#                                               
+			, productserial           = #productserial#                                          
+			, hardwarekey           = #hardwarekey#                                          
+			, replacedid	       = #replacedid#                                              
+			, saledate		        = #saledate#           
+			, saletime		        = #saletime#           
+			, expiredate	       = #expiredate#                                              
+			, shipping                  = #shipping#                                                 
+			, isshipped                = #isshipped#                                               
+			, shippingid               = #shippingid#                                              
+			, academicauth         = #academicauth#                                        
+			, fullname                  = #fullname#                                                 
+			, orgname                 = #orgname#                                                
+			, address1                = #address1#                                               
+			, address2                = #address2#                                               
+			, city                        = #city#                                                       
+			, state                      = #state#                                                     
+			, zipcode                  = #zipcode#                                                 
+			, country                   = #country#                                                  
+			, phone                     = #phone#                                                    
+			, email                      = #email#                                                     
+			, on_offline                = #on_offline#                                               
+			, note                       = #note#                                                      
+			, wintype                   = #wintype#                                                  
+			, offlinecode	        = #offlinecode#      
+			, manual                  = #manual#
+			, education               = #education#
+			, registercount               = #registercount#
+			, registered               = #registered#                                       
+		WHERE 1 = 1
+		AND saleid = #saleid#
+	</update>
+
+	<update id="SaleDao.license.update" parameterClass="com.netminer.manager.sale.model.SaleModel">
+		UPDATE
+			sale_new
+		SET
+			serialnum =  #serialnum# 
+		WHERE 1 = 1
+		AND saleid = #saleid#
+	</update>
+
+	<update id="SaleDao.hardwareRegist.update" parameterClass="com.netminer.manager.sale.model.SaleModel">
+		UPDATE
+			sale_new
+		SET
+			registercount =  #registercount# 
+		WHERE 1 = 1
+		AND saleid = #saleid#
+	</update>
+	
+	<update id="SaleDao.hardwareReset.update" parameterClass="com.netminer.manager.sale.model.SaleModel">
+		UPDATE
+			sale_new
+		SET
+			registered =  0 
+		WHERE 1 = 1
+		AND saleid = #saleid#
+	</update>
+	
+	<delete id="SaleDao.hardwareReset.delete" parameterClass="com.netminer.manager.sale.model.SaleModel">
+		DELETE FROM
+			register_hardware
+		WHERE 1 = 1
+		AND productserial = #productserial#
+	</delete>
+	
+	
+	<update id="SaleDao.replacedid.update" parameterClass="com.netminer.manager.sale.model.SaleModel">
+		UPDATE
+			sale_new
+		SET
+			replacedid =  #replacedid# 
+		WHERE 1 = 1
+		AND saleid = #saleid#
+	</update>
+
+	<delete id="SaleDao.delete" parameterClass="com.netminer.manager.sale.model.SaleModel">
+		DELETE FROM
+			sale_new
+		WHERE 1 = 1
+		AND saleid = #saleid#
+	</delete>
+
+	<delete id="SaleDao.salepackage.delete" parameterClass="com.netminer.manager.sale.model.SaleModel">
+		DELETE FROM
+			salepackage
+		WHERE 1 = 1
+		AND saleid = #saleid#
+	</delete>
+	
+	<delete id="SaleDao.extension.delete" parameterClass="com.netminer.manager.sale.model.SaleModel">
+		DELETE FROM
+			sale_extension
+		WHERE 1 = 1
+		AND productserial = #productserial#
+	</delete>
+
+  <select id="SaleDao.readList.country" 
+    resultClass="com.cyframe.model.SelectBoxModel">
+		SELECT 
+		  usdprice AS value, 
+		  country AS text 
+		FROM 
+		  shippingcost 
+		WHERE 
+		  1 = 1 
+		ORDER BY 
+		  pk_id ASC
+  </select>
+
+	<select id="SaleDao.read.tutorial_mail"
+		parameterClass="com.netminer.download_buy.download.model.DownloadModel"
+		resultClass="int">
+		SELECT
+			count(*)
+		FROM
+			tutorial_mail
+		WHERE 
+			1 = 1
+			AND customer = #sessionId#
+	</select>
+
+</sqlMap>

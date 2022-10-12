@@ -1,0 +1,44 @@
+Dear [SaleModel.fullname],
+
+Thank you for purchasing NetMiner Commercial license.
+ 
+We thought you'd like to know that we shipped your items, and that this completes your order.  
+
+You can track the status of this delivery by visiting DHL website: http://www.dhl.com
+- DHL International (Tracking number: [SaleModel.shippingid]) 
+
+After clearing customs, you could receive the CD package. The attached invoice would be required for the clearing customs.
+Your receipt (commercial invoice for your order) has been enveloped in CD package. 
+ 
+NetMiner Commercial License has been issued. Please check the attachment. 
+
+------------------------------- NetMiner License Information -------------------------- 
+
+Product ID	CYNM[SaleModel.productserial]
+License		[SaleModel.licenseusage_name]
+Term		[SaleModel.licenseterm_name]
+Size		[SaleModel.licensesize_name]
+Packages
+		LIST{[SaleModel.salePackageModelList.ProductpackageModel.subcategory]}LIST
+                     
+---------------------------------------------------------------------------------------------------------
+ 
+You can also find NetMiner setup file on NetMiner website. Please go to “Buy&Down” page.
+http://www.netminer.com/download_buy/download/download-readList.do
+
+If you have an account on NetMiner.com, please provide your account in order to register the license information to your account. 
+ 
+	* Software License Key is required for NetMiner installation. I have attached the license key to this email.
+	* Hardware Key is required for using NetMiner. The system in which NetMiner is installed must supports USB dongle. (Upgrade Package doesn’t include a hardware key. You can use your hardware key.)
+	* Warning : Hardware Key is for check your relevant use of NetMiner. It is unavailable to be re-issued. Please be careful not to lose the hardware key.
+
+To register NetMiner, your computer system would be connected to the Internet.
+Or you can register on offline status. Please send us “Offline Register Code” with your Product ID. Then, you can receive a validation code within 48 business hours. You can check your offline register code by clicking “Offline Register” button on the registration dialog.
+
+If you want install NetMiner in 64-bit OS system (and vice versa), you can find 64-bit NetMiner setup file in setup folder. 
+
+If you have any questions while using NetMiner or need additional information on our products or services, please feel free to contact us at netminer@cyram.com
+Best Regards,
+
+NetMiner Team
+Cyram Inc.

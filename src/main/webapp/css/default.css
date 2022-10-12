@@ -1,0 +1,225 @@
+@charset "utf-8";
+/* default */
+body,p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,legend,input,textarea,button,select{margin:0;padding:0} 
+body,h1,h2,h3,h4,h5,h6,input,textarea,select,button,table{font-family:"돋움",dotum,AppleGothic,sans-serif;font-size:12px} 
+body{color:#575757}
+img,fieldset{border:0} 
+ul,ol{list-style:none} 
+em,address{font-style:normal} 
+a{color:#575757;text-decoration:none}
+a:focus,a:active,a:hover{color:#0081ab;text-decoration:none}
+a.green:link,a.green:active, a.green:visited{color:#5d9b0a;text-decoration:none}
+a.green:hover{color:#000;text-decoration:none}
+caption{height:0;line-height:0;font-size:0px;visibility:hidden}
+legend{position:absolute;top:-999px;left:0px;visibility:hidden}
+
+/* display */
+.blind{position:absolute;left:-9999px;top:-9999px}
+.skipnavi2{position:relative;width:100%}
+.skipnavi2 a{position:absolute;left:-9999px;top:-9999px;display:block}
+.skipnavi2 a:focus,.skipnavi2 a:active,.skipnavi2 a:hover{display:block;position:static;color:#333;font-weight:bold;font-size:12px;text-decoration:underline}
+
+/* floating */
+.colgroup{overflow:hidden;width:100%}
+.fl{float:left}
+.fr{float:right}
+
+/* clear */
+.mgtn{margin-top:0 !important}
+.mgrn{margin-right:0 !important}
+.mgbn{margin-bottom:0 !important}
+.mgln{margin-left:0 !important}
+.pdtn{padding-top:0 !important}
+.pdrn{padding-right:0 !important}
+.pdbn{padding-bottom:0 !important}
+.pdln{padding-left:0 !important}
+.bdn{border:0 !important}
+.bgn{background:none !important}
+.txtnor{font-style:normal !important;font-weight:normal !important}
+
+/* align */
+.ar{text-align:right !important}
+.al{text-align:left !important}
+.ac{text-align:center !important}
+.aj{text-align:justify !important}
+.vt{vertical-align:top !important}
+.vb{vertical-align:bottom !important}
+.vm{vertical-align:middle !important}
+
+/* 기존거추가 */
+/* common style */
+.clear{clear:both;width:0;height:0;font-size:0;line-height:0}
+.f11{font-size:11px}
+.hand{cursor:pointer}
+.f14{font-size:14px;}
+
+.accessibility{visibility: hidden;width:0;height:0;margin: 0;padding: 0;font-size: 0;line-height: 0;overflow: hidden}
+.txt_si5{font-size:5px}
+.txt_c{text-align:center !important}
+.txt_l{text-align:left !important}
+.txt_r{text-align:right !important}
+.f_bold{font-weight:bold !important}
+.float_l{float:left !important}
+.float_r{float:right !important}
+.f_normal{font-weight:normal !important}
+/* margin /padding */
+.mg_t0{margin-top:0 !important}
+.mg_b0{margin-bottom:0 !important}
+.mg_t3{margin-top:3px !important}
+.mg_t8{margin-top:8px !important}
+.mg_t10{margin-top:10px !important}
+.mg_t15{margin-top:15px !important}
+.mg_t18{margin-top:18px !important}
+.mg_t20{margin-top:20px !important}
+.mg_t25{margin-top:25px !important}
+.mg_t26{margin-top:26px !important}
+.mg_t30{margin-top:30px !important}
+.mg_t40{margin-top:40px !important}
+.mg_r0{margin-right:0 !important}
+.mg_r4{margin-right:4px !important}
+.mg_r5{margin-right:5px !important}
+.mg_r6{margin-right:6px !important}
+.mg_r10{margin-right:10px !important}
+.mg_r15{margin-right:15px !important}
+.mg_r18{margin-right:18px !important}
+.mg_r19{margin-right:19px !important}
+.mg_r20{margin-right:20px !important}
+.mg_r30{margin-right:30px !important}
+.mg_r35{margin-right:35px !important}
+.mg_r40{margin-right:40px !important}
+.mg_r70{margin-right:70px !important}
+.mg_b0{margin-bottom:0px !important}
+.mg_b3{margin-bottom:3px !important}
+.mg_b5{margin-bottom:5px !important}
+.mg_b7{margin-bottom:7px !important}
+.mg_b10{margin-bottom:10px !important}
+.mg_b15{margin-bottom:15px !important}
+.mg_b17{margin-bottom:17px !important}
+.mg_b20{margin-bottom:20px !important}
+.mg_b22{margin-bottom:22px !important}
+.mg_b24{margin-bottom:24px !important}
+.mg_b25{margin-bottom:25px !important}
+.mg_b30{margin-bottom:30px !important}
+.mg_b45{margin-bottom:45px !important}
+.mg_b60{margin-bottom:60px !important}
+.mg_l3{margin-left:3px !important}
+.ie6fix .mg_l3{margin-left:1px !important}
+.mg_l5{margin-left:5px !important}
+.mg_l9{margin-left:9px !important}
+.mg_l10{margin-left:10px !important}
+.mg_l14{margin-left:14px !important}
+.mg_l15{margin-left:15px !important}
+.mg_l20{margin-left:20px !important}
+.mg_l25{margin-left:25px !important}
+.mg_l30{margin-left:30px !important}
+.mg_l33{margin-left:33px !important} /*1129_nara*/
+.mg_l35{margin-left:35px !important}
+.mg_l40{margin-left:40px !important}
+.mg_l42{margin-left:42px !important}
+.mg_l50{margin-left:50px !important}
+.mg_l65{margin-left:65px !important}
+.pd_b5{padding-bottom:5px !important}
+.pd_b10{padding-bottom:10px !important}
+.pd_b20{padding-bottom:20px !important}
+.pd_t0{padding-top:0px !important}
+.pd_t4{padding-top:4px !important}
+.pd_t7{padding-top:7px !important}
+.pd_t10{padding-top:10px !important}
+.pd_t20{padding-top:20px !important}
+.pd_t40{padding-top:40px !important}
+.pd_t60{padding-top:60px !important}
+.pd_l20{padding-left:20px !important}
+.pd_l10{padding-left:10px !important}
+.pd_l46{padding-left:46px !important}
+.pd_l30{padding-left:30px !important}
+
+.pd_rlb20{padding:0 20px 20px 20px !important}
+.mg_tm15{margin-top:-15px !important}
+
+/* 컬러 */
+.fc_72b815{color:#72b815}/* green */
+.fc_0081ac{color:#0081ab} /* blue */
+.fc_58b9d8{color:#0066c2}/* light blue */
+.fc_848484{color:#848484}/* light gray */
+.fc_575757{color:#575757 !important}/* gray */
+.fc_58b9d8{color:#077ab3}/* board blue */
+.fc_ff6600{color:#ff6600}
+.fc_ff7200{color:#ff7200}
+.fc_ff5a01{color:#ff5a01}
+/* bg컬러 */
+.bg_f7f7f7{background:#f7f7f7 !important}/* 회색컬러 */
+
+/* width */
+.w_100{width:100px !important}
+.w_110{width:110px !important}
+.w_144{width:144px !important}
+.w_139{width:139px !important}
+.w_150{width:150px !important}
+.w_90{width:90px !important}
+.wd750{width:750px !important}
+.wd550{width:550px !important}
+.wd280{float:left;width:280px !important}
+.wd465{float:right !important;width:460px !important}
+/* height */
+.h_165{height:165px !important}
+.h_200{height:200px !important}
+.h_450{height:450px !important}
+.h_170{height:170px !important}
+.ie6fix .h_170,
+.ie7fix .h_170{height:160px !important}
+
+/*페이징*/
+div.paging{clear:both;width:100%;height:25px;text-align:center;color:#575757;position:relative}
+div.paging .lbtn{position:absolute;left:0;top:5px}
+div.paging .rbtn{position:absolute;right:0;top:5px}
+div.paging span{display:inline-block;margin:4px 0 0 5px;font:bold 12px/1.4 dotum;color:#575757}/* color:#ff862a;*/
+div.paging span a:link,
+div.paging span a:active,
+div.paging span a:visited{display:inline-block;margin:4px 0 0 5px;font:12px/1.4 dotum;color:#848484}
+div.paging span a:hover{color:#ff862a;text-decoration:none}
+div.paging img{vertical-align:middle}
+div.paging img.pre{margin:0 10px 0 8px}
+div.paging img.next{margin:0 8px 0 15px}
+
+.disp_none{visibility:hidden;overflow:hidden;position:absolute;top:0;left:0;width:0;height:0;font-size:0;line-height:0}
+.disp_block{display:block}
+.zdx{position:relative;z-index:10}
+.noline{border:none !important}
+
+.blind{visibility:hidden;overflow:hidden;position:absolute;top:0;left:0;width:0;height:0;font-size:0;line-height:0}
+
+/* 20101125 김미선 추가 radio버튼과 txt정렬 
+.rb{margin-bottom:-2px}
+	:root .rb{margin:0 5px 0 0;vertical-align:middle}
+*/
+.bgNone{background:url('none') !important}
+.vabottom{vertical-align:bottom}
+.firstGreen{border-top:1px solid #72b815 !important}
+.firstBlue{border-top:1px solid #0098CA !important}
+
+/* 로그인타이머 */
+.timerwrap{visibility:hidden;position:absolute;left:50%;top:288px;width:500px;margin-left:-250px;background:#fff;z-index:99999;line-height:18px}
+.timerwrap .timerbg{border:4px solid #0b5cb7;padding:0 35px 0 140px;height:173px;background:url(/images/common/cont/timer_bg.gif) no-repeat 0 0}
+.timerwrap .txt1{margin-top:40px;font-weight:bold}
+.timerwrap .time{border:1px solid #e4e4e4;color:#0b5cb7;font-weight:bold;padding:6px 10px 4px;background:#f6f6f6;margin-top:12px}
+
+/* 에러화면 */
+.errorwrap{width:600px;margin:196px auto 0;line-height:18px}
+.errorwrap .errorcont{height:198px;border-top:4px solid #0b5cb7;border-bottom:1px solid #0b5cb7;margin-top:11px;padding:0 0 0 224px;background:url(/images/common/cont/error_bg.gif) no-repeat 0 0}
+.errorwrap .txt1{margin-top:65px}
+.errorwrap .txt2{margin-top:10px;font-weight:bold;font-size:14px;color:#077ab3}
+.errorwrap .copy{margin-top:17px;text-align:center}
+
+
+
+/* 12-07-09 최지은 보더 추가 */
+.bd_all {border: 1px solid #dfdfdf; }
+.bd_r {border-right: 1px solid #dfdfdf; }
+.bd_l {border-left: 1px solid #dfdfdf; }
+.bd_t {border-top: 1px solid #dfdfdf; }
+.bd_b {border-bottom: 1px solid #dfdfdf; }
+
+
+
+/* 12-07-12 최지은 패딩 추가 */
+.pd_all10{padding:10px !important}

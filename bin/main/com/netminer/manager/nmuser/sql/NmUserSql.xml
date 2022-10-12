@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="NmUserDao">
+
+	<sql id="nmUserListWhere">
+		<isNotEmpty property="searchWord">
+			<isEqual property="searchKind" compareValue="loginid">
+		     	AND loginid LIKE CONCAT('%', #searchWord#, '%')
+			</isEqual>
+			<isEqual property="searchKind" compareValue="email">
+		     	AND email LIKE CONCAT('%', #searchWord#, '%')
+			</isEqual>
+			<isEqual property="searchKind" compareValue="firstname+lastname">
+		     	AND (firstname LIKE CONCAT('%', #searchWord#, '%')
+		     		OR lastname LIKE CONCAT('%', #searchWord#, '%')
+		     		)
+			</isEqual>
+		</isNotEmpty>
+	</sql>
+	
+	<insert id="NmUserDao.create" parameterClass="com.netminer.manager.nmuser.model.NmUserModel">
+		INSERT INTO nmuser
+		(
+			  userid
+			, saleid
+			, loginid
+			, pwd
+			, email
+			, firstname
+			, lastname
+			, industry
+			, occupation
+			, organization
+			, department
+			, title
+			, country
+			, city
+			, birthday
+			, gender
+			, mailing
+			, mailtype
+			, registerdate
+			, registertime
+		) VALUES (
+			 0
+			,0
+			,#loginid#
+			,PASSWORD(#pwd#)
+			,#email#
+			,#firstname#
+			,#lastname#
+			,#industry#
+			,#occupation#
+			,#organization#
+			,#department#
+			,#title#
+			,#country#
+			,#city#
+			,#birthday#
+			,#gender#
+			,#mailing#
+			,#mailtype#
+			,DATE_FORMAT(NOW(),'%Y%m%d')
+			,DATE_FORMAT(NOW(),'%H%m%s')
+		)
+	</insert>
+
+	<select id="NmUserDao.readTotal" 
+		parameterClass="com.netminer.manager.nmuser.model.NmUserModel" 
+		resultClass="int">
+		SELECT 
+			COUNT(loginid)
+		FROM nmuser
+		WHERE 1 = 1
+
+		<include refid="nmUserListWhere"/>
+	</select>
+
+	<select id="NmUserDao.readList" 
+		parameterClass="com.netminer.manager.nmuser.model.NmUserModel" 
+		resultClass="com.netminer.manager.nmuser.model.NmUserModel">
+		SELECT 
+			  userid
+			, saleid
+			, loginid
+			, email
+			, firstname
+			, lastname
+			, industry
+			, occupation
+			, organization
+			, department
+			, title
+			, country
+			, city
+			, birthday
+			, gender
+			, mailing
+			, mailtype
+			, DATE_FORMAT(registerdate, '%Y-%m-%d') AS registerdate
+			, DATE_FORMAT(registertime, '%H:%m:%s') AS registertime
+		FROM nmuser
+		WHERE 1 = 1
+
+		<include refid="nmUserListWhere"/>
+		
+		ORDER BY registerdate DESC, registertime DESC
+		LIMIT #pageNo#, #listCount#
+	</select>
+
+	<select id="NmUserDao.read" 
+		parameterClass="com.netminer.manager.nmuser.model.NmUserModel" 
+		resultClass="com.netminer.manager.nmuser.model.NmUserModel">
+		SELECT 
+		  userid, 
+		  saleid, 
+		  loginid, 
+		  email, 
+		  firstname, 
+		  lastname, 
+		  industry, 
+		  occupation, 
+		  organization, 
+		  department, 
+		  title, 
+		  country, 
+		  city, 
+		  birthday, 
+		  gender, 
+		  mailing, 
+		  mailtype, 
+		  DATE_FORMAT(registerdate, '%Y-%m-%d') AS registerdate, 
+		  DATE_FORMAT(registertime, '%H:%m:%s') AS registertime, 
+		  CASE (
+		    SELECT 
+		      COUNT(*) 
+		    FROM 
+		      sale_new 
+		    WHERE 
+		      loginid = #loginid# 
+		      AND SERIALNUM != ''
+		  ) WHEN 0 THEN 'false' ELSE 'true' END AS buyer 
+		FROM 
+		  nmuser 
+		WHERE 
+		  1 = 1 
+		  AND loginid = #loginid#
+		  <isNotEmpty property="pwd">
+		  AND pwd = PASSWORD(#pwd#) 
+		  </isNotEmpty>
+		ORDER BY 
+		  registerdate DESC, 
+		  registertime DESC 
+		LIMIT 
+		  0, 1
+	</select>
+
+	<update id="NmUserDao.update" parameterClass="com.netminer.manager.nmuser.model.NmUserModel">
+		UPDATE
+			nmuser
+		SET
+      email =  #email# 
+		
+		<isNotEmpty property="pwd">
+	     	, pwd = PASSWORD(#pwd#)
+		</isNotEmpty>
+
+			, firstname =  #firstname# 
+			, lastname =  #lastname# 
+			, industry =  #industry# 
+			, occupation =  #occupation# 
+			, organization =  #organization# 
+			, department =  #department# 
+			, title =  #title# 
+			, country =  #country# 
+			, city =  #city# 
+			, birthday =  #birthday# 
+			, gender =  #gender# 
+			, mailing =  #mailing# 
+			, mailtype =  #mailtype# 
+		WHERE 1 = 1
+		AND loginid = #loginid#
+	</update>
+
+	<update id="NmUserDao.update.email" parameterClass="com.netminer.manager.nmuser.model.NmUserModel">
+		UPDATE
+			nmuser
+		SET
+			email =  #email# 
+		WHERE 1 = 1
+		AND loginid = #loginid#
+	</update>
+
+	<delete id="NmUserDao.delete" parameterClass="com.netminer.manager.nmuser.model.NmUserModel">
+		DELETE FROM
+			nmuser
+		WHERE 1 = 1
+		AND loginid = #loginid#
+	</delete>
+
+</sqlMap>

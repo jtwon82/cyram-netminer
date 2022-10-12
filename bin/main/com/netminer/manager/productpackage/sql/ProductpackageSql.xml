@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ProductpackageDao">
+
+	<select id="ProductpackageDao.readList" 
+		parameterClass="com.netminer.manager.productpackage.model.ProductpackageModel" 
+		resultClass="com.netminer.manager.productpackage.model.ProductpackageModel">
+		SELECT 
+			id                          
+			, product                  
+			, category                
+			, subcategory
+			, packageid        
+			, name                    
+			, descriptionurl         
+			, note                      
+			, usdprice                
+			, krwprice                
+			, licenseusage         
+			, licenseterm            
+			, licensesize            
+		FROM productpackage
+		WHERE 1 = 1
+
+		<isNotEmpty property="id">
+			AND id = #id#
+		</isNotEmpty>
+
+		<isNotEmpty property="product">
+			AND product = #product#
+		</isNotEmpty>
+
+		<isNotEmpty property="licenseusage">
+			AND licenseusage = #licenseusage#
+		</isNotEmpty>
+
+		<isNotEmpty property="licenseterm">
+			AND licenseterm = #licenseterm#
+		</isNotEmpty>
+
+		<isNotEmpty property="licensesize">
+			AND licensesize = #licensesize#
+		</isNotEmpty>
+
+		<isEqual property="licenseusage" compareValue="0">
+	     	AND note = 'Prerequisite'
+		</isEqual>
+		
+		ORDER BY id ASC
+	</select>
+
+</sqlMap>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="EditionDao">
+
+	<select id="EditionDao.readList.editionDetail" parameterClass="com.netminer.manager.productpackage.model.ProductpackageModel" 
+		resultClass="com.netminer.manager.edition.model.EditionModel">
+		SELECT 
+			e.id
+			, e.label
+			, e.description
+			, e.descriptionkr
+			, sum(p.usdprice) as usdprice
+			, sum(p.krwprice) as krwprice 
+		FROM edition_package ep
+		, (SELECT 
+		      * 
+		    FROM 
+		      edition 
+		    WHERE 
+		      productid = #product#
+		  ) e 
+		, (SELECT 
+				* 
+			FROM productpackage 
+			WHERE product = #product# 
+				AND licenseusage = #licenseusage# 
+				AND licenseterm = #licenseterm#
+		  ) p
+		WHERE 1 = 1 
+			AND ep.editionid = e.id 
+			AND ep.packageid = p.packageid 
+			AND ep.licensesize = p.licensesize
+		GROUP BY ep.editionid
+		ORDER BY ep.editionid
+	</select>
+	
+	<select id="EditionDao.readList.editionpackage" parameterClass="com.netminer.manager.edition.model.EditionpackageModel" 
+		resultClass="com.netminer.manager.edition.model.EditionpackageModel">
+		SELECT
+			  id
+			, editionid
+			, packageid
+			, licensesize
+			, licenseterm
+		FROM edition_package
+		WHERE 1 = 1
+		AND editionid = #editionid#
+		ORDER BY packageid ASC
+	</select>
+
+</sqlMap>

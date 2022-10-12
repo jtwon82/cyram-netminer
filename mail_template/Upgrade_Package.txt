@@ -1,0 +1,21 @@
+[견적 요청]
+
+이름: [UpgradeModel.name]
+e-mail: [UpgradeModel.email] 
+회사명/기관명: [UpgradeModel.organization] 
+부서명: [UpgradeModel.department] 
+직책/직위: [UpgradeModel.position] 
+연락처: [UpgradeModel.contactinfo]
+
+패키지 업그레이드
+기존 product ID: [UpgradeModel.productid]
+데이터 크기 변경: [UpgradeModel.datasize] 
+패키지 추가: 
+		LIST{[UpgradeModel.packageModelList.PackageModel.label]}LIST 
+익스텐션 - SNS 데이터 수집기: [UpgradeModel.sns]
+익스텐션 - Biblio 데이터 수집기: [UpgradeModel.bibl]
+
+결제방법: [UpgradeModel.payment]
+-------------- 추가 메세지 --------------
+[UpgradeModel.message] 
+---------------------------------------

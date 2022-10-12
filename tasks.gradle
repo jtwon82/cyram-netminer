@@ -1,0 +1,17 @@
+task copyConfiguration << {
+	println "Target environment: $environment"
+	
+	copy {
+		from "src/main/environment/$environment"
+		into "src/main/resources/config"
+		include "*/"
+	}
+}
+
+task sslee << {
+	project.ext.environment = 'sslee'
+}
+
+task prod << {
+	project.ext.environment = 'prod'
+}

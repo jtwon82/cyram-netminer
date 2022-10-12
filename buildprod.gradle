@@ -1,0 +1,64 @@
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'war'
+apply plugin: 'com.bmuschko.cargo'
+apply from: 'tasks.gradle'
+apply from: 'config.gradle'
+
+loadConfiguration()
+
+def loadConfiguration() {
+	def environment = hasProperty('env') ? env : 'prod'
+	project.ext.environment = environment
+}
+
+buildscript {
+	repositories { mavenCentral() }
+	dependencies { classpath 'com.bmuschko:gradle-cargo-plugin:2.3' }
+}
+
+processResources.dependsOn copyConfiguration
+
+sourceCompatibility = 1.8
+version = '1.0'
+jar {
+	manifest {
+		attributes 'Implementation-Title': 'Gradle Quickstart', 'Implementation-Version': version
+	}
+}
+
+war {
+	archiveName = 'ROOT.war'
+}
+
+compileJava { options.encoding = 'UTF-8' }
+
+eclipse {
+	wtp {
+		facet {
+			facet name: 'jst.web', version: '3.0'
+			facet name: 'java', version: '1.8'
+			facet name: 'wst.jsdt.web', version: '1.0'
+		}
+		component { contextPath = '/' }
+	}
+	classpath { downloadSources=true }
+}
+
+
+/* 운영서버 톰캣7용. tomcat-users.xml에서 유저에게 manager-script 롤이 부여되어야 함. */
+cargo {
+	cargoRedeployRemote.dependsOn war // war작업을 한 다음 리디플로이함
+	containerId = 'tomcat7x'
+	port = 10080
+
+	deployable { context = '/' // 루트에 배포
+	}
+
+	remote {
+		hostname = '61.78.52.130'
+		username = 'admin'
+		password = '@tkdlfka2015'
+		containerProperties { property 'cargo.remote.uri', 'http://61.78.52.130:10080/tcmanager/text' }
+	}
+}

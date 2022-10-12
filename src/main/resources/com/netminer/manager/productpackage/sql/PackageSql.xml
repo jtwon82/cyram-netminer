@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="PackageDao">
+
+	<select id="PackageDao.readList" 
+		resultClass="com.netminer.manager.productpackage.model.PackageModel">
+		SELECT 
+			id                          
+			, label            
+		FROM package
+		WHERE 1 = 1
+		ORDER BY id ASC
+	</select>
+
+</sqlMap>

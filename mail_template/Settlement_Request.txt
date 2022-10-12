@@ -1,0 +1,23 @@
+Dear [SettlementModel.s_orderid],
+
+Thank you for concerning NetMiner. 
+
+Would you please proceed to make a payment via the following link?
+
+[SettlementModel.mailURL]
+
+(Total amount is USD [SettlementModel.s_price])
+
+If you have any questions, please don’t hesitate to contact us at netminer@cyram.com.
+
+Best regards,
+
+Soojin Bae
+
+NetMiner Team
+Cyram Inc.
+
+〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+www.netminer.com
+Follow us on Twitter and Facebook!
+

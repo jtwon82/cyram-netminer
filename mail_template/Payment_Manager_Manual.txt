@@ -1,0 +1,15 @@
+----------------------------------------------
+이름: [SaleModel.fullname] 
+Email: [SaleModel.email]
+
+----------------------------------------------
+라이선스: [SaleModel.licenseusage_name]
+이용기간: [SaleModel.licenseterm_name]
+데이터 크기: [SaleModel.licensesize_name]
+매뉴얼: [SaleModel.manual]
+
+----------------------------------------------
+수량: [SaleModel.note] 개
+결제 방법: [SaleModel.pay]
+배송 방법: [SaleModel.shipping]
+결제 금액: [SaleModel.total]

@@ -1,0 +1,1 @@
+${saleLicenseModel.license}

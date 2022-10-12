@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="PaymentDao">
+
+	<insert id="PaymentDao.create" parameterClass="com.netminer.manager.payment.model.PaymentModel">
+		INSERT INTO payment
+		(
+			 oid 
+			, abroad 
+			, price 
+			, unitsprice 
+			, extensionPrice
+			, upgradediffer 
+			, vat 
+			, shipping_cost 
+			, currency 
+			, saledate 
+			, saletime 
+		) VALUES (
+			#oid#
+			,#abroad#
+			,#price#
+			,#unitsprice#
+			,#extensionPrice#
+			,#upgradediffer#
+			,#vat#
+			,#shipping_cost#
+			,#currency#
+			,DATE_FORMAT(NOW(),'%Y%m%d')
+			,DATE_FORMAT(NOW(),'%H%m%s')
+		)
+	</insert>
+
+	<select id="PaymentDao.read" 
+		parameterClass="com.netminer.manager.payment.model.PaymentModel" 
+		resultClass="com.netminer.manager.payment.model.PaymentModel">
+		SELECT
+			id 
+			, oid 
+			, abroad 
+			, price 
+			, unitsprice 
+			, extensionPrice
+			, upgradediffer 
+			, vat 
+			, shipping_cost 
+			, currency 
+			, saledate 
+			, saletime 
+		FROM payment
+		WHERE 1 = 1
+		AND oid = #oid#
+		ORDER BY id DESC
+		LIMIT 0, 1 
+	</select>
+
+	<update id="PaymentDao.update" parameterClass="com.netminer.manager.payment.model.PaymentModel">
+		UPDATE
+			payment
+		SET
+			 abroad 			 = #abroad#                                                                 
+			, price 			 = #price#                                                                    
+			, unitsprice 		 = #unitsprice#
+			, extensionPrice     = #extensionPrice#
+			, upgradediffer 	 = #upgradediffer#                                                        
+			, vat 				 = #vat#                                                                       
+			, shipping_cost 	 = #shipping_cost#                                                       
+			, currency 			 = #currency#
+		WHERE 1 = 1
+		AND oid = #oid#
+	</update>
+
+	<delete id="PaymentDao.delete" parameterClass="com.netminer.manager.payment.model.PaymentModel">
+		DELETE FROM
+			payment
+		WHERE 1 = 1
+		AND oid = #oid#
+	</delete>
+
+
+</sqlMap>

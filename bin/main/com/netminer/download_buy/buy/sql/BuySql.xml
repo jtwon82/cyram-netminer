@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="BuyDao">
+
+	<select id="BuyDao.readList" 
+		parameterClass="com.netminer.download_buy.buy.model.BuyModel" 
+		resultClass="com.netminer.download_buy.buy.model.BuyModel">
+		SELECT
+			  A.saleid                    
+			, A.loginid                   
+			, A.oid                        
+			, A.filename                 
+			, A.productid
+			, A.edition              
+			, B.label AS licenseusage          
+			, A.licenseusagefactor  
+			, C.label AS licenseterm            
+			, A.licensetermfactor    
+			, D.label AS licensesize          
+			, A.licensesizefactor    
+			, CASE A.serialnum
+				WHEN '' THEN '미발급'
+				ELSE '발급'
+			  END AS serialnum
+			, A.productserial          
+			, A.hardwarekey          
+			, A.replacedid
+			, DATE_FORMAT(A.saledate, '%Y-%m-%d') AS saledate
+			, DATE_FORMAT(A.expiredate, '%Y-%m-%d') AS expiredate
+			, DATE_FORMAT(A.saletime, '%H:%m:%s') AS saletime
+			, A.shipping                 
+			, A.isshipped               
+			, A.shippingid              
+			, A.academicauth        
+			, A.fullname                 
+			, A.orgname                
+			, A.address1               
+			, A.address2               
+			, A.city                       
+			, A.state                     
+			, A.zipcode                 
+			, A.country                  
+			, A.phone                    
+			, A.email                     
+			, A.on_offline               
+			, A.note                      
+			, A.wintype                  
+			, A.offlinecode  
+			, A.manual           
+			, A.education
+			, A.registercount
+			, A.registered
+		FROM sale_new A
+		LEFT JOIN licenseusage B ON A.licenseusage = B.id
+		LEFT JOIN licenseterm C ON A.licenseterm = C.id
+		LEFT JOIN licensesize D ON A.licensesize = D.id
+		WHERE 1 = 1
+		AND A.loginid = #sessionId#
+		AND A.replacedid = -1
+		ORDER BY saledate ASC, saletime ASC
+	</select>
+
+</sqlMap>

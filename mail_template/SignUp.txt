@@ -1,0 +1,13 @@
+[Sign-up]
+
+ID: [NmUserModel.loginid]
+e-mail: [NmUserModel.email]
+First Name: [NmUserModel.firstname]
+Last Name: [NmUserModel.lastname]
+Occupation: [NmUserModel.occupation]
+Industry: [NmUserModel.industry]
+Company / Organization: [NmUserModel.organization]
+Country: [NmUserModel.country]
+City: [NmUserModel.city]
+Gender: [NmUserModel.gender]
+

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ExtensionDao">
+	<select id="ExtensionDao.readList.extensionDetail" parameterClass="com.netminer.manager.productpackage.model.ProductpackageModel" 
+		resultClass="com.netminer.manager.extension.model.ExtensionModel">
+		SELECT
+			e.extensionId
+			, e.labelEn
+			, e.labelKr
+			, e.descriptionEn
+			, e.descriptionKr
+			, e.priceUsd
+			, e.priceKrw
+			, #kor# as kor /* 언어를 패키지 모델에서 가져와서 넣어준다 */
+		FROM
+			extension_info e
+		WHERE 1=1
+			AND e.licenseusage = #licenseusage#
+	</select>
+	
+	<select id="ExtensionDao.readList.available" parameterClass="com.netminer.manager.sale.model.SaleModel"
+		resultClass="com.netminer.manager.extension.model.ExtensionModel">
+		SELECT
+			e.extensionId
+			, e.labelEn
+			, e.priceUsd
+			, e.priceKrw
+		FROM
+			extension_info e
+		WHERE 1=1
+			AND e.licenseusage = #licenseusage#
+	</select>
+	
+	<select id="ExtensionDao.readList.extensions" parameterClass="hashmap" resultClass="com.netminer.manager.extension.model.ExtensionModel">
+		SELECT
+		    s.extensionId
+		    , s.expiredate
+		    , e.labelen
+		FROM
+		    sale_extension s, extension_info e
+		WHERE
+			productserial = #serial#
+			AND e.licenseusage = #usage#
+			AND s.extensionid = e.extensionid
+	</select>
+	
+	<delete id="ExtensionDao.delete.extensions" parameterClass="String">
+		DELETE FROM
+			extensions
+		WHERE
+			productid = #value#
+	</delete>
+</sqlMap>

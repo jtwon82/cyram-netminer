@@ -1,0 +1,19 @@
+[견적 요청]
+
+이름: [BuyEnterpriseModel.name]
+e-mail: [BuyEnterpriseModel.email] 
+회사명/기관명: [BuyEnterpriseModel.organization] 
+부서명: [BuyEnterpriseModel.department] 
+직책/직위: [BuyEnterpriseModel.position] 
+연락처: [BuyEnterpriseModel.contactinfo] 
+
+라이선스: [BuyEnterpriseModel.licenseterm] 
+에디션: [BuyEnterpriseModel.edition] 
+익스텐션 - SNS 데이터 수집기: [BuyEnterpriseModel.sns]
+익스텐션 - Biblio 데이터 수집기: [BuyEnterpriseModel.bibl]
+사용자 수: [BuyEnterpriseModel.numberofusers] 
+사용용도: [BuyEnterpriseModel.licenseusage] 
+
+-------------- 추가 메세지 --------------
+[BuyEnterpriseModel.message] 
+---------------------------------------

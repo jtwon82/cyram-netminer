@@ -1,0 +1,32 @@
+Dear [SaleModel.fullname],
+
+NetMiner Student(Research) License has been issued. Please check the attachment.
+
+------------------------------- NetMiner License Information -------------------------- 
+
+Product ID	CYNM[SaleModel.productserial]
+License		[SaleModel.licenseusage_name]
+Term		[SaleModel.licenseterm_name] [Expire Date : [SaleModel.expiredate]]
+Size		[SaleModel.licensesize_name]
+Packages
+		LIST{[SaleModel.salePackageModelList.ProductpackageModel.subcategory]}LIST
+
+------------------------------------------------------------------------------------------------------
+
+ 
+You can download NetMiner setup file on NetMiner website. Please go to “Buy&Down” page.
+http://www.netminer.com/download_buy/download/download-readList.do
+
+=============================================
+The LICENSEE of NetMiner Student(Research) must be a student, who intends to write a research paper using the Software.
+The term of the Student License expires automatically in an instant after the duration of such enrollment or participation in the aforementioned task. 
+The installation and use of the Programs are allowed for the purpose of, in this case, meeting classroom requirements of courses and study offered by the degree-granting educational institution and writing a research paper.
+Any other use is expressly prohibited.
+=============================================
+
+If you have any questions about NetMiner, please feel free to email us.
+
+Best Regards,
+
+NetMiner Team
+Cyram Inc.

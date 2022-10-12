@@ -1,0 +1,16 @@
+[버전 업그레이드 요청]
+
+이름: [UpgradeModel.name]
+e-mail: [UpgradeModel.email] 
+회사명/기관명: [UpgradeModel.organization] 
+부서명: [UpgradeModel.department] 
+직책/직위: [UpgradeModel.position] 
+연락처: [UpgradeModel.contactinfo]
+
+버전 업그레이드 
+기존 product ID: [UpgradeModel.productid]
+결제 방법: [UpgradeModel.payment]
+
+-------------- 추가 메세지 --------------
+[UpgradeModel.message] 
+---------------------------------------

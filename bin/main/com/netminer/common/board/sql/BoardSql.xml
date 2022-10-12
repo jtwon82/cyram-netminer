@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="BoardDao">
+
+	<sql id="boardListWhere">
+		AND wr_id = wr_parent
+
+		<isNotEmpty property="searchCa_name">
+			<isNotEqual property="searchCa_name" compareValue="ALL">
+		     	AND ca_name = #searchCa_name#
+			</isNotEqual>
+		</isNotEmpty>
+				
+		<isNotEmpty property="searchWord">
+			<isEqual property="searchKind" compareValue="wr_subject">
+		     	AND wr_subject LIKE CONCAT('%', #searchWord#, '%')
+			</isEqual>
+			<isEqual property="searchKind" compareValue="wr_content">
+		     	AND wr_content LIKE CONCAT('%', #searchWord#, '%')
+			</isEqual>
+			<isEqual property="searchKind" compareValue="wr_subject+wr_content">
+		     	AND (wr_subject LIKE CONCAT('%', #searchWord#, '%')
+		     		OR wr_content LIKE CONCAT('%', #searchWord#, '%')
+		     		)
+			</isEqual>
+		</isNotEmpty>
+	</sql>
+	
+	<sql id="tableName">
+		<!--
+			Notice는 한영 테이블 분리
+			나머지는 통합
+		 -->
+		<isEqual property="controller" compareValue="notice">
+			<isEqual property="kor" compareValue="true">
+			g4_write_notice_kr
+			</isEqual>
+			<isEqual property="kor" compareValue="false">
+			g4_write_notice
+			</isEqual>
+		</isEqual>
+		
+		<isEqual property="controller" compareValue="faq">
+			<isEqual property="kor" compareValue="true">
+			g4_write_faq_kr
+			</isEqual>
+			<isEqual property="kor" compareValue="false">
+			g4_write_faq
+			</isEqual>
+		</isEqual>
+				
+		<isEqual property="controller" compareValue="forum">
+			<isEqual property="kor" compareValue="true">
+			g4_write_forum_kr
+			</isEqual>
+			<isEqual property="kor" compareValue="false">
+			g4_write_forum
+			</isEqual>
+		</isEqual>
+		
+		<isNotEqual property="controller" compareValue="notice">
+		<isNotEqual property="controller" compareValue="forum">
+			<isNotEqual property="controller" compareValue="faq">
+				g4_write_$controller$
+			</isNotEqual>
+			</isNotEqual>
+		</isNotEqual>
+	</sql>
+
+	<sql id="boTable">
+		<!--
+			Notice는 한영 테이블 분리
+			나머지는 통합
+		 -->
+		<isEqual property="controller" compareValue="notice">
+			<isEqual property="kor" compareValue="true">
+			$controller$_kr
+			</isEqual>
+			<isEqual property="kor" compareValue="false">
+			$controller$
+			</isEqual>
+		</isEqual>
+
+		<isEqual property="controller" compareValue="faq">
+			<isEqual property="kor" compareValue="true">
+			$controller$_kr
+			</isEqual>
+			<isEqual property="kor" compareValue="false">
+			$controller$
+			</isEqual>
+		</isEqual>
+
+	<isEqual property="controller" compareValue="forum">
+		<isEqual property="kor" compareValue="true">
+			$controller$_kr
+		</isEqual>
+		<isEqual property="kor" compareValue="false">
+			$controller$
+		</isEqual>
+	</isEqual>
+		
+		<isNotEqual property="controller" compareValue="notice">
+		<isNotEqual property="controller" compareValue="forum">
+			<isNotEqual property="controller" compareValue="faq">
+			$controller$
+			</isNotEqual>
+			</isNotEqual>
+		</isNotEqual>
+	</sql>
+
+	<insert id="BoardDao.create" parameterClass="com.netminer.common.board.model.BoardModel">
+		INSERT INTO 
+			<include refid="tableName"/>
+			(
+			wr_num
+			, wr_reply
+			, wr_parent
+			, wr_is_comment
+			, wr_comment
+			, wr_comment_reply
+			, ca_name
+			, wr_option
+			, wr_subject
+			, wr_content
+			, wr_link1
+			, wr_link2
+			, wr_link1_hit
+			, wr_link2_hit
+			, wr_trackback
+			, wr_hit
+			, wr_good
+			, wr_nogood
+			, mb_id
+			, wr_name
+			, wr_password
+			, wr_email
+			, wr_homepage
+			, wr_datetime
+			, wr_last
+			, wr_ip
+			, wr_1
+			, wr_2
+			, wr_3
+			, wr_4
+			, wr_5
+			, wr_6
+			, wr_7
+			, wr_8
+			, wr_9
+			, wr_10
+			)
+		SELECT 
+			(IFNULL(MIN(wr_num), 0) - 1) AS wr_num 
+			,#wr_reply#
+			,#wr_parent#
+			,#wr_is_comment#
+			,#wr_comment#
+			,#wr_comment_reply#
+			,#ca_name#
+			,#wr_option#
+			,#wr_subject#
+			,#wr_content#
+			,#wr_link1#
+			,#wr_link2#
+			,#wr_link1_hit#
+			,#wr_link2_hit#
+			,#wr_trackback#
+			,#wr_hit#
+			,#wr_good#
+			,#wr_nogood#
+			
+<!-- 		<isNotEmpty property="sessionAdminId"> -->
+<!-- 			,#sessionAdminName# -->
+<!-- 		</isNotEmpty> -->
+<!-- 		<isNotEmpty property="sessionId"> -->
+<!-- 			,#sessionId# -->
+<!-- 		</isNotEmpty> -->
+<!-- 		<isEmpty property="sessionId"> -->
+<!-- 			,#mb_id# -->
+<!-- 		</isEmpty> -->
+		<isNotEmpty property="sessionAdminId">
+			,#sessionAdminId#
+		</isNotEmpty>
+		<isEmpty property="sessionAdminId">
+			<isNotEmpty property="sessionId">
+				,#sessionId#
+			</isNotEmpty>
+			<isEmpty property="sessionId">
+				,#comment_mb_id#
+			</isEmpty>
+		</isEmpty>
+		
+		<isNotEmpty property="sessionAdminName">
+			,#sessionAdminName#
+		</isNotEmpty>
+		<isEmpty property="sessionAdminName">
+			<isNotEmpty property="sessionFirstname">
+				,CONCAT(#sessionFirstname#, ' ', #sessionLastname#)
+			</isNotEmpty>
+			<isEmpty property="sessionFirstname">
+				,#mb_id#
+			</isEmpty>
+		</isEmpty>
+		
+
+			,#wr_password#
+			,#wr_email#
+			,#wr_homepage#
+			,now()
+			,now()
+			,#wr_ip#
+			,#wr_1#
+			,#wr_2#
+			,#wr_3#
+			,#wr_4#
+			,#wr_5#
+			,#wr_6#
+			,#wr_7#
+			,#wr_8#
+			,#wr_9#
+			,#wr_10#
+		FROM <include refid="tableName"/>
+		WHERE 1 = 1
+		AND wr_is_comment = 0
+			
+		<selectKey keyProperty="wr_id" resultClass="int">
+			SELECT last_insert_id()
+		</selectKey>
+	</insert>
+
+	<insert id="BoardDao.create.comment" parameterClass="com.netminer.common.board.model.BoardModel">
+		<selectKey keyProperty="wr_comment" resultClass="int">
+			SELECT
+				(IFNULL(MAX(wr_comment), 0) + 1) AS wr_comment
+			FROM <include refid="tableName"/>
+			WHERE 1 = 1
+			AND wr_id = #wr_id#
+		</selectKey>
+		
+		INSERT INTO 
+			<include refid="tableName"/>
+			(
+			wr_num
+			, wr_reply
+			, wr_parent
+			, wr_is_comment
+			, wr_comment
+			, wr_comment_reply
+			, ca_name
+			, wr_option
+			, wr_subject
+			, wr_content
+			, wr_link1
+			, wr_link2
+			, wr_link1_hit
+			, wr_link2_hit
+			, wr_trackback
+			, wr_hit
+			, wr_good
+			, wr_nogood
+			, mb_id
+			, wr_name
+			, wr_password
+			, wr_email
+			, wr_homepage
+			, wr_datetime
+			, wr_last
+			, wr_ip
+			, wr_1
+			, wr_2
+			, wr_3
+			, wr_4
+			, wr_5
+			, wr_6
+			, wr_7
+			, wr_8
+			, wr_9
+			, wr_10
+			)
+		SELECT 
+			wr_num 
+			,#wr_reply#
+			,#wr_id#
+			,1
+			,#wr_comment#
+			,#wr_comment_reply#
+			,ca_name
+			,#wr_option#
+			,#wr_subject#
+			,#comment_wr_content#
+			,#wr_link1#
+			,#wr_link2#
+			,#wr_link1_hit#
+			,#wr_link2_hit#
+			,#wr_trackback#
+			,#wr_hit#
+			,#wr_good#
+			,#wr_nogood#
+		
+		<isNotEmpty property="sessionAdminId">
+			,#sessionAdminId#
+		</isNotEmpty>
+		<isEmpty>
+			<isNotEmpty property="sessionId">
+				,#sessionId#
+			</isNotEmpty>
+			<isEmpty property="sessionId">
+				,#comment_mb_id#
+			</isEmpty>
+		</isEmpty>
+		
+		<isNotEmpty property="sessionAdminName">
+			,#sessionAdminName#
+		</isNotEmpty>
+		<isEmpty property="sessionAdminName">
+			<isNotEmpty property="sessionFirstname">
+				,CONCAT(#sessionFirstname#, ' ', #sessionLastname#)
+			</isNotEmpty>
+			<isEmpty property="sessionFirstname">
+				,#comment_mb_id#
+			</isEmpty>
+		</isEmpty>
+		
+
+			,#comment_wr_password#
+			,#wr_email#
+			,#wr_homepage#
+			,now()
+			,now()
+			,#wr_ip#
+			,#wr_1#
+			,#wr_2#
+			,#wr_3#
+			,#wr_4#
+			,#wr_5#
+			,#wr_6#
+			,#wr_7#
+			,#wr_8#
+			,#wr_9#
+			,#wr_10#
+		FROM <include refid="tableName"/>
+		WHERE 1 = 1
+		AND wr_id = #wr_id#
+	</insert>
+	
+	<insert id="BoardDao.create.new" parameterClass="com.netminer.common.board.model.BoardModel">
+		INSERT INTO g4_board_new
+			(
+			bo_table
+			, wr_id
+			, wr_parent
+			, bn_datetime
+			, mb_id
+			)
+		VALUES
+			(
+			#controller#
+			,#wr_id#
+			,#wr_parent#
+			,now()
+			,#sessionAdminId#
+			)
+	</insert>
+	
+	<select id="BoardDao.readTotal" 
+		parameterClass="com.netminer.common.board.model.BoardModel" 
+		resultClass="int">
+		SELECT 
+			COUNT(wr_id)
+		FROM <include refid="tableName"/>
+		WHERE 1 = 1
+
+		<include refid="boardListWhere"/>
+
+	</select>
+
+	<select id="BoardDao.readList" 
+		parameterClass="com.netminer.common.board.model.BoardModel" 
+		resultClass="com.netminer.common.board.model.BoardModel">
+		SELECT 
+			wr_id
+			, wr_num
+			, wr_reply
+			, wr_parent
+			, wr_is_comment
+			, wr_comment
+			, wr_comment_reply
+			, ca_name
+			, wr_option
+			, wr_subject
+			, wr_content
+		<![CDATA[
+			, REPLACE(REPLACE(REPLACE(LEFT(wr_content, 300), '<', '&lt;'), '>', '&gt;'), '\n', '<br/>') AS wr_content_view
+			]]>
+			, wr_link1
+			, wr_link2
+			, wr_link1_hit
+			, wr_link2_hit
+			, wr_trackback
+			, wr_hit
+			, wr_good
+			, wr_nogood
+			, mb_id
+			, wr_name
+			, wr_email
+			, wr_homepage
+			, wr_datetime
+			, DATE_FORMAT(wr_last, '%Y-%m-%d') AS wr_last
+			, wr_ip
+			, wr_1
+			, wr_2
+			, wr_3
+			, wr_4
+			, wr_5
+			, wr_6
+			, wr_7
+			, wr_8
+			, wr_9
+			, wr_10
+		FROM <include refid="tableName"/>
+		WHERE 1 = 1
+
+		<include refid="boardListWhere"/>
+		
+		<isNotEmpty property="orderby">
+		ORDER BY $orderby$
+		</isNotEmpty>
+		
+		<isEmpty property="orderby">
+		ORDER BY wr_id DESC
+		</isEmpty>
+		
+		LIMIT #pageNo#, #listCount#
+	</select>
+
+	<select id="BoardDao.readList.new" 
+		parameterClass="com.netminer.common.board.model.BoardModel" 
+		resultClass="com.netminer.common.board.model.BoardModel">
+		SELECT 
+			A.wr_id
+			, A.wr_num
+			, A.wr_reply
+			, A.wr_parent
+			, A.wr_is_comment
+			, A.wr_comment
+			, A.wr_comment_reply
+			, A.ca_name
+			, A.wr_option
+			, A.wr_subject
+			, A.wr_content
+		<![CDATA[
+			, REPLACE(REPLACE(REPLACE(A.wr_link1, '<', '&lt;'), '>', '&gt;'), '\n', '<br/>') AS wr_link1
+			]]>
+			, A.wr_link2
+			, A.wr_link1_hit
+			, A.wr_link2_hit
+			, A.wr_trackback
+			, A.wr_hit
+			, A.wr_good
+			, A.wr_nogood
+			, A.mb_id
+			, A.wr_name
+			, A.wr_email
+			, A.wr_homepage
+			, A.wr_datetime
+			, DATE_FORMAT(A.wr_last, '%Y-%m-%d') AS wr_last
+			, A.wr_ip
+		FROM <include refid="tableName"/> A, g4_board_new B
+		WHERE 1 = 1
+		AND B.bo_table = TRIM('<include refid="boTable"/>')
+		AND B.wr_id = A.wr_id
+		ORDER BY B.wr_id DESC
+	</select>
+	
+	<select id="BoardDao.readList.comment" 
+		parameterClass="com.netminer.common.board.model.BoardModel" 
+		resultClass="com.netminer.common.board.model.BoardModel">
+		SELECT 
+			wr_id
+			, wr_num
+			, wr_reply
+			, wr_parent
+			, wr_is_comment
+			, wr_comment
+		<![CDATA[
+			, REPLACE(REPLACE(REPLACE(wr_content, '<', '&lt;'), '>', '&gt;'), '\n', '<br/>') AS wr_content_view
+			]]>
+			, wr_comment_reply
+			, ca_name
+			, wr_option
+			, wr_subject
+			, wr_content
+			, wr_link1
+			, wr_link2
+			, wr_link1_hit
+			, wr_link2_hit
+			, wr_trackback
+			, wr_hit
+			, wr_good
+			, wr_nogood
+			, mb_id
+			, wr_password
+			, wr_name
+			, wr_email
+			, wr_homepage
+			, wr_datetime
+			, wr_last
+			, wr_ip
+			, wr_1
+			, wr_2
+			, wr_3
+			, wr_4
+			, wr_5
+			, wr_6
+			, wr_7
+			, wr_8
+			, wr_9
+			, wr_10
+		FROM <include refid="tableName"/>
+		WHERE 1 = 1
+		AND wr_parent = #wr_id#
+		AND wr_is_comment = 1
+		ORDER BY wr_id ASC
+	</select>
+
+	<select id="BoardDao.read" 
+		parameterClass="com.netminer.common.board.model.BoardModel" 
+		resultClass="com.netminer.common.board.model.BoardModel">
+		SELECT 
+			A.wr_id
+			, A.wr_num
+			, A.wr_reply
+			, A.wr_parent
+			, A.wr_is_comment
+			, A.wr_comment
+			, A.wr_comment_reply
+			, A.ca_name
+			, A.wr_option
+			, A.wr_subject
+			, A.wr_content
+		<![CDATA[
+			, REPLACE(REPLACE(REPLACE(A.wr_content, '<', '&lt;'), '>', '&gt;'), '\n', '<br/>') AS wr_content_view
+			]]>
+			, A.wr_link1
+			, A.wr_link2
+			, A.wr_link1_hit
+			, A.wr_link2_hit
+			, A.wr_trackback
+			, A.wr_hit
+			, A.wr_good
+			, A.wr_nogood
+			, A.mb_id
+			, A.wr_password
+			, A.wr_name
+			, A.wr_email
+			, A.wr_homepage
+			, A.wr_last
+			, A.wr_ip
+			, A.wr_1
+			, A.wr_2
+			, A.wr_3
+			, A.wr_4
+			, A.wr_5
+			, A.wr_6
+			, A.wr_7
+			, A.wr_8
+			, A.wr_9
+			, A.wr_10
+			, B.bn_id
+		FROM <include refid="tableName"/> A
+		LEFT JOIN g4_board_new B ON A.wr_id = B.wr_id AND B.bo_table = TRIM('<include refid="boTable"/>')
+		WHERE 1 = 1
+		AND A.wr_id = #wr_id#
+		
+		<isNotEmpty property="wr_password">
+			AND A.wr_password = #wr_password#
+		</isNotEmpty>
+	</select>
+
+	<update id="BoardDao.update" parameterClass="com.netminer.common.board.model.BoardModel">
+		UPDATE
+			<include refid="tableName"/>
+		SET
+			ca_name = #ca_name# 
+			,wr_subject = #wr_subject# 
+			,wr_content = #wr_content# 
+			,wr_link1 = #wr_link1#
+			,wr_email = #wr_email# 
+			,wr_homepage = #wr_homepage# 
+			,wr_last = now() 
+		WHERE 1 = 1
+		AND wr_id = #wr_id#
+	</update>
+
+	<update id="BoardDao.hit.update" parameterClass="com.netminer.common.board.model.BoardModel">
+		UPDATE
+			<include refid="tableName"/>
+		SET
+			wr_hit = wr_hit + 1
+		WHERE 1 = 1
+		AND wr_id = #wr_id#
+	</update>
+
+	<update id="BoardDao.parent.update" parameterClass="com.netminer.common.board.model.BoardModel">
+		UPDATE
+			<include refid="tableName"/>
+		SET
+			wr_parent = #wr_parent#
+		WHERE 1 = 1
+		AND wr_id = #wr_id#
+	</update>
+
+	<update id="BoardDao.comment.update" parameterClass="com.netminer.common.board.model.BoardModel">
+		UPDATE
+			<include refid="tableName"/>
+		SET
+			wr_comment = (SELECT cnt FROM
+						(
+						SELECT
+							COUNT(wr_id) AS cnt
+						FROM <include refid="tableName"/>
+						WHERE 1 = 1
+						AND wr_parent = #wr_id#
+						AND wr_is_comment = 1
+						) AS A
+						)
+		WHERE 1 = 1
+		AND wr_id = #wr_id#
+	</update>
+
+	<delete id="BoardDao.delete" parameterClass="com.netminer.common.board.model.BoardModel">
+		DELETE FROM
+			<include refid="tableName"/>
+		WHERE 1 = 1
+		AND wr_id = #wr_id#
+	</delete>
+
+	<delete id="BoardDao.delete.comment" parameterClass="com.netminer.common.board.model.BoardModel">
+		DELETE FROM
+			<include refid="tableName"/>
+		WHERE 1 = 1
+		AND wr_is_comment = 1
+		AND wr_parent = #wr_id#
+		
+		<isNotEmpty property="wr_comment">
+			<isNotEqual property="wr_comment" compareValue="0">
+		AND wr_comment = #wr_comment#
+			</isNotEqual>
+		</isNotEmpty>
+		
+		<isNotEmpty property="comment_delete_password">
+		AND wr_password = #comment_delete_password#
+		</isNotEmpty>
+	</delete>
+
+	<delete id="BoardDao.delete.new" parameterClass="com.netminer.common.board.model.BoardModel">
+		DELETE FROM g4_board_new
+		WHERE 1 = 1
+		AND bo_table = TRIM('<include refid="boTable"/>')
+		AND bn_id = #bn_id#
+		AND wr_id = #wr_id#
+	</delete>
+</sqlMap>

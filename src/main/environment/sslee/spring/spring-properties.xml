@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+  <bean name="PropertyService" class="com.cyframe.property.PropertyService" destroy-method="destroy">
+    <property name="properties">
+      <map>
+        <entry key="product.id" value="69" />
+        <entry key="product.filename" value="NetMiner4" />
+        
+        <entry key="manager.board.list.count" value="10" />
+        <entry key="manager.board.page.count" value="10" />
+
+        <entry key="server.url" value="http://192.168.3.97:8180" />
+        <!-- 개발용 --> 
+        <entry key="upload.file.proof.Path" value="E:\\dev\web\www.netminer.com\upload\proof\" />
+        <entry key="download.file.image.Path" value="E:\\dev\web\www.netminer.com\src\main\webapp\" />
+        <entry key="upload.file.Path" value="E:\\Dev\web\www.netminer.com\upload\" />
+        <entry key="download.file.storage.Path" value="E:\\dev\websites\www.netminer.com\storage\" />
+        <entry key="mail.subject.Path" value="E:\\dev\web\www.netminer.com\mail_template\Subject.txt" />
+        <entry key="mail.template.Path" value="E:\\dev\web\www.netminer.com\mail_template\" />
+        <entry key="license.file.Path" value="d:\\temp\filepath\" />
+        <!-- 결제관련 test -->
+        <entry key="pay.TYPE" value="test" />
+        <entry key="pay.MID" value="netminer" />
+        <entry key="pay.CONFIG_PATH" value="C:\\dev\websites\PayTest\src\main\webapp\lgdacom\" />
+        <entry key="pay.MERTKEY" value="a1a22546283b8d27657744196476c66a" />
+        <entry key="pay.PAGE_SUCCEED" value="http://localhost:8080/download_buy/buy/pay_lg_success.do" />
+        <entry key="pay.PAGE_FAILED" value="http://localhost:8080/download_buy/buy/pay_lg_fail.do" />
+        <entry key="pay.ACTION_URL_KRW" value="http://pg.dacom.net:7080/card/cardAuthAppInfo.jsp" />
+
+		<entry key="netminer.file.ko_32" value="Setup-NetMiner4.exe" />
+        <entry key="netminer.file.ko_64" value="Setup-NetMiner4_x64.exe" />
+        <entry key="netminer.file.ko_eva" value="Setup-FreeTrial_x64.exe" />
+        <entry key="netminer.file.32" value="Setup-NetMiner4.exe" />
+        <entry key="netminer.file.64" value="Setup-NetMiner4_x64.exe" />
+        <entry key="netminer.file.eva" value="Setup-FreeTrial_x64.exe" />
+        <entry key="netminer.file.viewer" value="NetMiner-Viewer.zip" />
+        <entry key="netminer.file.snscollector" value="SNS Data Collector Installer x86.exe"/>
+		<entry key="netminer.file.snscollector64" value="SNS Data Collector Installer x64.exe"/>
+		<entry key="netminer.file.bibliocollector" value="Biblio Data Collector Installer x86.exe"/>
+		<entry key="netminer.file.bibliocollector64" value="Biblio Data Collector Installer x64.exe"/>
+        
+        <entry key="mail.smtp.host" value="smtp.gmail.com" />
+        <entry key="mail.id" value="netminer@cyram.com" />
+        <entry key="mail.pw">
+          <value><![CDATA[sptakdlsj423!]]></value>
+        </entry>
+        <entry key="manager.mail.id" value="sslee@cyram.com" />
+        
+        <entry key="edu.mail.id" value="edu@cyram.com" />
+        <entry key="edu.mail.pw">
+          <value><![CDATA[sptakdlsj423]]></value>
+        </entry>
+      </map>
+    </property>
+    
+    <property name="authController">
+          <list>
+             <value>Plugin_script[create,read,update,delete]</value>
+             <value>Buy[create,read,package_ajax_read,view_ok_Student_courcework,view_ok_Research_academic,view_ok_Account_transfer,update]</value>
+             <value>BuyList[readList]</value>
+             <value>Download[read_download_32,read_download_64,read_download_eva]</value>
+          </list>
+    </property>
+  </bean>
+    
+  <bean name="MessageService" class="com.cyframe.property.MessageService" destroy-method="destroy">
+    <property name="properties">
+      <map>
+        <entry key="msg_save.kor"            value="저장되었습니다." />
+        <entry key="msg_delete.kor"          value="삭제되었습니다." />
+        <entry key="msg_signup.kor"         value="회원 등록이 되었습니다." />
+        <entry key="msg_ava_id.kor"          value="사용 가능한 ID입니다." />
+        <entry key="msg_not_ava_id.kor"    value="사용 불가능한 ID입니다." />
+        <entry key="msg_not_pwd.kor"       value="비밀번호가 불일치합니다." />
+        <entry key="msg_short_pwd.kor"       value="비밀번호는 6자리 이상, 32자리 이하여야 합니다." />
+        <entry key="msg_enter_id.kor"    value="ID를 입력하세요." />
+        <entry key="msg_enter_pwd.kor"       value="비밀번호를 입력하세요." />
+        <entry key="msg_fail_id.kor"           value="ID가 존재하지 않습니다." />
+        <entry key="msg_fail_pwd.kor"       value="비밀번호가 틀렸습니다." />
+        <entry key="msg_delete_confirm.kor"       value="정말 삭제하시겠습니까?" />
+        <entry key="msg_login_confirm.kor"       value="NetMiner 웹사이트에 회원 계정이 있으십니까?\n\n해당 페이지에 접근하기 위해서는 로그인이 필요합니다.\n만약 NetMiner 웹사이트에 회원 계정이 없다면, 회원 가입을 해주시기 바랍니다. 감사합니다." />
+        <entry key="msg_clip_confirm.kor"       value="이 글의 트랙백 주소를 클립보드에 복사하시겠습니까?" />
+        <entry key="msg_clip.kor"       value="이 글의 트랙백 주소입니다. Ctrl+C를 눌러 클립보드로 복사하세요" />
+        
+        <entry key="msg_save.eng"            value="Saved Successfully" />
+        <entry key="msg_delete.eng"          value="Deleted successfully" />
+        <entry key="msg_signup.eng"         value="Your account has been created." />
+        <entry key="msg_ava_id.eng"          value="User ID is available" />
+        <entry key="msg_not_ava_id.eng"    value="User ID already exists." />
+        <entry key="msg_not_pwd.eng"       value="The password do not match." />
+        <entry key="msg_short_pwd.eng"       value="Password must be between 6-32 characters" />
+        <entry key="msg_enter_id.eng"    value="Enter your ID" />
+        <entry key="msg_enter_pwd.eng"       value="Enter your password" />
+        <entry key="msg_fail_id.eng"           value="User ID does not exist." />
+        <entry key="msg_fail_pwd.eng"       value="User ID and password do not match." />
+        <entry key="msg_delete_confirm.eng"       value="Are you sure you want to delete?" />
+        <entry key="msg_login_confirm.eng"       value="Please log-in to access the page.\nIf you don’t have an account on NetMiner website, please sign up. Thank you!" />
+        <entry key="msg_clip_confirm.eng"       value="Are you sure you want to copy link?" />
+        <entry key="msg_clip.eng"       value=" Press CTRL+C to copy link to clipboard" />      
+      
+      </map>
+    </property>
+    
+  </bean>
+    
+</beans>

@@ -1,0 +1,35 @@
+Dear [SaleModel.fullname],
+
+NetMiner Academic License has been issued. Please check the attachment. 
+
+------------------------------- NetMiner License Information -------------------------- 
+
+Product ID	CYNM[SaleModel.productserial]
+License		[SaleModel.licenseusage_name]
+Term		[SaleModel.licenseterm_name] [Expire Date : [SaleModel.expiredate]]
+Size		[SaleModel.licensesize_name]
+Packages
+		LIST{[SaleModel.salePackageModelList.ProductpackageModel.subcategory]}LIST
+                     
+---------------------------------------------------------------------------------------------------------
+ 
+You can download NetMiner setup file on NetMiner website. Please go to “Buy&Down” page.
+http://www.netminer.com/download_buy/download/download-readList.do
+
+==============================================================================================
+The LICENSEE must be a degree-granting educational institution or its enrolled faculty and academic staffs.
+Research and development divisions, administration center within educational institution and other not-for-profit organizations do not qualify for the Academic license. 
+The installation and use of the Software are allowed for the purpose of:
+    (i) in the case of employees (faculty and academic staff), teaching, and non-commercial, academic research in their ordinary course as LICENSEE's employees; 
+    (ii) in the case of enrolled students, meeting classroom requirements of courses and study offered by the LICENSEE. Any other use is expressly prohibited. 
+==============================================================================================
+
+For more information about NetMiner license policy, please visit NetMiner website: 
+http://www.netminer.com/download_buy/download/download-readList.do
+
+If you have any questions about NetMiner, please feel free to email us.
+
+Best Regards,
+
+NetMiner Team
+Cyram Inc.

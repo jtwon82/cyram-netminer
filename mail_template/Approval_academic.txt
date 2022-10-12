@@ -1,0 +1,14 @@
+Dear [SaleModel.fullname],
+
+We’re writing to inform your academic status couldn’t be confirmed with your attachment or URL.
+
+If you have not sent us your academic status information or give invalid information , please send us valid ID card scanned image file or URL that shows your academic status to this email address.
+
+We will issue your license as soon as your academic status is checked completely.
+
+If you have any questions about NetMiner, please feel free to email us.
+
+Best Regards,
+
+NetMiner Team
+Cyram Inc.

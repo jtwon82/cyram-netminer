@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AdminDao">
+
+	<insert id="AdminDao.create" parameterClass="com.netminer.manager.admin.model.AdminModel">
+		INSERT INTO admin
+			(
+			adminid
+			, adminpw
+			, adminname
+			, del
+			, reg_date
+			)
+		VALUES
+			( 
+			#adminid#
+			, PASSWORD(#adminpw#)
+			, #adminname#
+			, #del#
+			, now()
+			)
+	</insert>
+
+	<select id="AdminDao.readList" 
+		parameterClass="com.netminer.manager.admin.model.AdminModel" 
+		resultClass="com.netminer.manager.admin.model.AdminModel">
+		SELECT 
+			adminid
+			, adminname
+			, CASE del
+				WHEN 'N' THEN '사용'
+				ELSE '사용중지'
+			  END AS del
+			, reg_date
+		FROM admin
+		WHERE 1 = 1
+		ORDER BY reg_date DESC
+	</select>
+
+	<select id="AdminDao.read" 
+		parameterClass="com.netminer.manager.admin.model.AdminModel" 
+		resultClass="com.netminer.manager.admin.model.AdminModel">
+		SELECT 
+			adminid
+			, adminname
+			, del
+			, reg_date
+		FROM admin
+		WHERE 1 = 1
+		AND adminid = #adminid#
+		AND del = 'N'
+		<isNotEmpty property="adminpw">
+	     	AND adminpw = PASSWORD(#adminpw#)
+		</isNotEmpty>
+	</select>
+
+	<update id="AdminDao.update" parameterClass="com.netminer.manager.admin.model.AdminModel">
+		UPDATE
+			admin
+		SET
+			adminname = #adminname# 
+		<isNotEmpty property="adminpw">
+			, adminpw = PASSWORD(#adminpw#) 
+		</isNotEmpty>
+			, del = #del#
+		WHERE 1 = 1
+		AND adminid = #adminid#
+	</update>
+
+</sqlMap>

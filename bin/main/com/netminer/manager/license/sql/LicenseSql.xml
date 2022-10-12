@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="LicenseDao">
+
+	<select id="LicenseDao.readList.usages" 
+		resultClass="com.cyframe.model.SelectBoxModel" parameterClass="String">
+		SELECT DISTINCT
+			u.id AS value
+			, u.label as text
+			, u._order 
+		FROM licenseusage u, productpackage p
+		WHERE 1 = 1
+			AND u.id = p.licenseusage
+			AND p.product = #value#
+		ORDER BY _order ASC
+	</select>
+
+	<select id="LicenseDao.readList.terms" 
+		resultClass="com.cyframe.model.SelectBoxModel" parameterClass="String">
+		SELECT DISTINCT
+			  t.id AS value
+			, t.label AS text
+		FROM licenseterm t, productpackage p
+		WHERE 1 = 1
+        	AND t.id = p.licenseterm
+        	AND p.product = #value#
+		ORDER BY t.id ASC
+	</select>
+
+	<select id="LicenseDao.readList.sizes" 
+		resultClass="com.cyframe.model.SelectBoxModel" parameterClass="String">
+		SELECT DISTINCT
+			  s.id AS value
+			, s.label AS text
+		FROM licensesize s, productpackage p
+		WHERE 1 = 1
+			AND s.id = p.licensesize
+			AND p.product = #value#
+		ORDER BY s.id ASC
+	</select>
+
+	<select id="LicenseDao.readList.terms.type" 
+		parameterClass="com.netminer.manager.license.model.LicenseModel" 
+		resultClass="com.cyframe.model.SelectBoxModel">
+		SELECT 
+		  T.id AS value, 
+		  T.label AS text 
+		FROM 
+		  licenseterm T 
+		  JOIN licensedependency D ON T.id = D.type 
+		WHERE 
+		  1 = 1 
+		  AND D.category = 'term' 
+		  AND D.licensetype = #licensetype#
+	</select>
+
+	<select id="LicenseDao.readList.sizes.type" 
+		parameterClass="com.netminer.manager.license.model.LicenseModel" 
+		resultClass="com.cyframe.model.SelectBoxModel">
+		SELECT 
+		  S.id AS value, 
+		  S.label AS text 
+		FROM 
+		  licensesize S 
+		  JOIN licensedependency D ON S.id = D.type 
+		WHERE 
+		  1 = 1 
+		  AND D.category = 'size' 
+		  AND D.licensetype = #licensetype#;
+	</select>
+
+	<select id="LicenseDao.readList.factor" 
+		parameterClass="com.netminer.manager.license.model.LicenseModel" 
+		resultClass="com.netminer.manager.license.model.LicenseModel">
+		SELECT
+			type
+			, factor
+		FROM licensepricefactor
+		WHERE 1 = 1
+		AND type = #type#
+		AND category = #category#
+		ORDER BY type ASC
+	</select>
+
+</sqlMap>

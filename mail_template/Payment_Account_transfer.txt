@@ -1,0 +1,33 @@
+Dear NetMiner customer,
+
+Thank you for purchasing NetMiner. 
+
+Here is the bank information for your payment. 
+
+-----------------------------------------------------------------------------------------------------------------
+Account: 570-276494-13-005
+Company Name: Cyram Inc.
+Swift Code: HVBKKRSEXXX
+Bank Name: WOORI BANK
+Bank Address: HAPCHONG-DONG Br. 373-4, hapchong-dong, mapo-ku, Seoul, South Korea 
+Due Total : USD [SaleModel.total]
+-------------------------------------------------------------
+
+
+Due Total has included fee imposed by our bank. 
+
+And international bank transfer would take around 1 to 5 working days to be successfully made.
+After making your payment, we’ll send your License key by e-mail.
+
+if you have any questions about NetMiner, please don’t hesitate to contact us at netminer@cyram.com.
+
+Best regards,
+ 
+NetMiner Team
+Cyram Inc.
+
+=================================================================
+NetMiner4 Official Website www.netminer.com
+Follow us on Twitter and Facebook if you want to receive the latest news about NetMiner.
+ 
+ 
