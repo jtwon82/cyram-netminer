@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -31,7 +32,7 @@ import com.netminer.manager.nmuser.model.NmUserModel;
 @Component
 public class Interceptor {
 
-//	private Logger log = Logger.getLogger(this.getClass());
+	private Logger log = Logger.getLogger(this.getClass());
 
 	@Inject
 	private SessionServiceIf sessionService;
@@ -54,6 +55,8 @@ public class Interceptor {
 	@Before("pointcut4Call()")
 	public void before(JoinPoint joinPoint) throws Exception {
 		CyframeModelIf model = this.getCyframeModel(joinPoint.getArgs());
+		log.info(String.format("model %s", model));
+		
 		if(model != null) {
 			String target = joinPoint.getTarget().getClass().getName();
 			String controller = joinPoint.getTarget().getClass().getSimpleName().replace("Controller", "");
@@ -61,16 +64,16 @@ public class Interceptor {
 			
 			String method = joinPoint.getSignature().getName();
 
-			//session 체크
+			//session 泥댄겕
 			this.checkSession(target, controller, method);
 			
-			//set kor(한영 구분)
+			//set kor(�븳�쁺 援щ텇)
 			this.setKor(model);
 			
-			//set user(사용자 정보)
+			//set user(�궗�슜�옄 �젙蹂�)
 			this.setUser(model);
 			
-			//set controller(테이블명 등으로 사용됨)
+			//set controller(�뀒�씠釉붾챸 �벑�쑝濡� �궗�슜�맖)
 			model.setController(controller.toLowerCase());
 		}
 	}
@@ -81,10 +84,10 @@ public class Interceptor {
 		CyframeModelIf model = this.getCyframeModel(joinPoint.getArgs());
 
 		if(model != null) {
-			//set kor(한영 구분)
+			//set kor(�븳�쁺 援щ텇)
 			this.setKor(model);
 			
-			//set user(사용자 정보)
+			//set user(�궗�슜�옄 �젙蹂�)
 			this.setUser(model);
 		}
 		
@@ -96,7 +99,7 @@ public class Interceptor {
 	}
 
 	/**
-	 * Cyframe 모델 추출
+	 * Cyframe 紐⑤뜽 異붿텧
 	 * @param args
 	 * @return
 	 * @throws Exception
@@ -111,7 +114,7 @@ public class Interceptor {
 	}
 
 	/**
-	 * ModelAndView 추출
+	 * ModelAndView 異붿텧
 	 * @param args
 	 * @return
 	 * @throws Exception
@@ -126,7 +129,7 @@ public class Interceptor {
 	}
 	
 	/**
-	 * 로그인 여부 체크
+	 * 濡쒓렇�씤 �뿬遺� 泥댄겕
 	 * @param target
 	 * @param controller
 	 * @param method
@@ -134,7 +137,7 @@ public class Interceptor {
 	 */
 	private void checkSession(String target, String controller, String method) throws Exception {
 
-		/* 세션 첫 접속인 경우 언어를 판별한다 */
+		/* �꽭�뀡 泥� �젒�냽�씤 寃쎌슦 �뼵�뼱瑜� �뙋蹂꾪븳�떎 */
 		if(null == context.getSession().getAttribute("first")) {
 			if(context.getLocale().getLanguage().equals("ko")) {
 				sessionService.setKor(true);
@@ -170,7 +173,7 @@ public class Interceptor {
 						
 						for(String methodStr : methods) {
 							if(method.equalsIgnoreCase(methodStr)) {
-								//로그인 페이지로 이동
+								//濡쒓렇�씤 �럹�씠吏�濡� �씠�룞
 								ModelAndView mv = new ModelAndView("/login/login-read", (Map<String, ?>) (new ModelMap()));
 								mv.addObject("nmUserModel", new NmUserModel());
 								throw new ModelAndViewDefiningException(mv);
@@ -183,22 +186,22 @@ public class Interceptor {
 	}
 	
 	/**
-	 * 한영 set
+	 * �븳�쁺 set
 	 * @param model
 	 * @throws Exception
 	 */
 	private void setKor(CyframeModelIf model) throws Exception {
-		//쿼리/화면 등에 사용되어야 하기 때문에 모델에 세팅한다.
+		//荑쇰━/�솕硫� �벑�뿉 �궗�슜�릺�뼱�빞 �븯湲� �븣臾몄뿉 紐⑤뜽�뿉 �꽭�똿�븳�떎.
 		model.setKor(sessionService.isKor());
 	}
 	
 	/**
-	 * 사용자 정보 set
+	 * �궗�슜�옄 �젙蹂� set
 	 * @param model
 	 * @throws Exception
 	 */
 	private void setUser(CyframeModelIf model) throws Exception {
-		//쿼리/화면 등에 사용되어야 하기 때문에 모델에 세팅한다.
+		//荑쇰━/�솕硫� �벑�뿉 �궗�슜�릺�뼱�빞 �븯湲� �븣臾몄뿉 紐⑤뜽�뿉 �꽭�똿�븳�떎.
 		SessionModel sessionModel = sessionService.getSessionModel();
 		
 		model.setLogin(sessionService.isLogin());
@@ -214,7 +217,7 @@ public class Interceptor {
 	}
 
 	/**
-	 * 메세지 set
+	 * 硫붿꽭吏� set
 	 * @param joinPoint
 	 * @throws Exception
 	 */
@@ -231,7 +234,7 @@ public class Interceptor {
 		BindingAwareModelMap map = this.getModelMap(joinPoint.getArgs());
 
 		if(map != null) {
-			//kor 세팅(css 때문에 추가)
+			//kor �꽭�똿(css �븣臾몄뿉 異붽�)
 			if(sessionService.isKor()) {
 				map.put("IS_KOR", "true");
 			} else {
@@ -251,7 +254,7 @@ public class Interceptor {
 	}
 	
 	/**
-	 * Controller (호출 프로그램) set
+	 * Controller (�샇異� �봽濡쒓렇�옩) set
 	 * @param authController
 	 * @return
 	 * @throws Exception
@@ -265,7 +268,7 @@ public class Interceptor {
 	}
 	
 	/**
-	 * Methods (호출 프로그램이 기능) set
+	 * Methods (�샇異� �봽濡쒓렇�옩�씠 湲곕뒫) set
 	 * @param authController
 	 * @return
 	 * @throws Exception

@@ -71,6 +71,12 @@
 				</dl>
 				<dl>
 					<dt>
+						<a href="javascript:fn_moveUpgrage('10');"><img class="bottom"
+							src="/images/sub/buy_educational_ko.png" alt="trial" width="885" height="123"/></a>
+					</dt>
+				</dl>
+				<dl>
+					<dt>
 						<a href="javascript:fn_moveUpgrage('9');"><img class="bottom"
 							src="/images/sub/buy_trial_ko.png" alt="trial" width="885" height="123"/></a>
 					</dt>

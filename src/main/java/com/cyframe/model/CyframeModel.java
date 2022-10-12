@@ -2,6 +2,8 @@ package com.cyframe.model;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 public abstract class CyframeModel implements Serializable, CyframeModelIf {
 
 	private static final long serialVersionUID = 1L;
@@ -24,6 +26,11 @@ public abstract class CyframeModel implements Serializable, CyframeModelIf {
 	private String searchKind;
 	private String searchWord;
 	private String orderby;
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
 	
 	public String getOrderby() {
 		return orderby;

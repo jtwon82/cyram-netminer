@@ -84,6 +84,7 @@ public class SaleModel extends CyframeModel implements Cloneable {
 	private String note = "";
 	private String wintype = "0";
 	private String offlinecode = "";
+	private String rangeChk="";
 	private String s_year = "";
 	private String s_month = "";
 	private String s_day = "";
@@ -819,5 +820,11 @@ public class SaleModel extends CyframeModel implements Cloneable {
 	}
 	public void setExtensionSum(String extensionSum) {
 		this.extensionSum = extensionSum;
+	}
+	public String getRangeChk() {
+		return rangeChk;
+	}
+	public void setRangeChk(String rangeChk) {
+		this.rangeChk = rangeChk;
 	}
 }

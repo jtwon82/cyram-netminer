@@ -50,6 +50,7 @@
        <ul>
         <li  class="mdl1">판매</li>
         <li id="mouseout" class="mdl1"><a href="/manager/sale/sale-readList.do"> 판매관리 </a></li>
+        <li id="mouseout" class="mdl1"><a href="/manager/sale/free-readList.do"> 수업용 신청 내역 </a></li>
         <li id="mouseout" class="mdl1"><a href="/manager/settlement/settlement-readList.do"> 자동결제 </a></li>
         
         <li  class="mdl1">사용자 관리</li>

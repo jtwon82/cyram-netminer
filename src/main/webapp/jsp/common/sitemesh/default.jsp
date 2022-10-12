@@ -108,6 +108,8 @@
 
 <decorator:body />
 	
+</div>
+
 <!--//풋터-->
 <c:choose>
 	<c:when test="${ IS_KOR eq 'false' }">
