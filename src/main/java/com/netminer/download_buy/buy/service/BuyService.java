@@ -1,6 +1,7 @@
 package com.netminer.download_buy.buy.service;
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -8,10 +9,14 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.cyframe.batch.MailSender;
+import com.cyframe.model.MultipartModel;
 import com.cyframe.model.SelectBoxModel;
 import com.cyframe.property.PropertyServiceIf;
 import com.cyframe.session.service.SessionServiceIf;
 import com.netminer.common.mail.model.MailModel;
+import com.netminer.common.nation.service.NationServiceIf;
+import com.netminer.common.util.DateUtil;
+import com.netminer.common.util.FileUtil;
 import com.netminer.common.util.MailMessageUtil;
 import com.netminer.common.util.ModelConverterUtil;
 import com.netminer.download_buy.buy.model.BuyModel;
@@ -27,10 +32,14 @@ import com.netminer.manager.nmuser.model.NmUserModel;
 import com.netminer.manager.nmuser.service.NmUserServiceIf;
 import com.netminer.manager.productpackage.model.ProductpackageModel;
 import com.netminer.manager.productpackage.service.ProductpackageServiceIf;
+import com.netminer.manager.sale.dao.SaleDao;
 import com.netminer.manager.sale.model.SaleModel;
 import com.netminer.manager.sale.service.SaleServiceIf;
 
+import lombok.extern.log4j.Log4j;
+
 @Service
+@Log4j
 public class BuyService implements BuyServiceIf {
 
 	@Inject
@@ -59,7 +68,13 @@ public class BuyService implements BuyServiceIf {
 
 	@Inject
 	private ExtensionServiceIf extensionService;
+	
+	@Inject
+	private NationServiceIf nationService;
 
+	@Inject
+	private SaleDao saleDao;
+	
 	@Override
 	public String[] create(BuyModel model) throws Exception {
 		SaleModel saleModel = (SaleModel) ModelConverterUtil.convert(model, SaleModel.class);
@@ -330,6 +345,84 @@ public class BuyService implements BuyServiceIf {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
+		}
+	}
+
+
+	@Override
+	public SaleModel readFree(SaleModel model) throws Exception {
+//		LicenseModel licenseModel = new LicenseModel();
+//		licenseModel.setLicensetype(model.getLicenseusage());
+//		List<SelectBoxModel> termsList = licenseService.readList_termsByType(licenseModel);
+//		List<SelectBoxModel> sizesList = licenseService.readList_sizesByType(licenseModel);
+
+//		model.setLicensetermsList(termsList);
+//		model.setLicensesizesList(sizesList);
+
+//		List<SelectBoxModel> countryList = saleService.readList_country();
+//		model.setCountryList(countryList);
+//
+//		NmUserModel nmUserModel = new NmUserModel();
+//		nmUserModel.setLoginid(sessionService.getSessionModel().getSessionId());
+//		nmUserModel = nmUserService.read(nmUserModel);
+//		model.setEmail(nmUserModel.getEmail());
+//
+//		if ("2".equals(model.getLicenseusage())) {
+//			model.setQtyList(30);
+//		} else {
+//			model.setQtyList(1);
+//		}
+		model.setNationList(nationService.readList(model));
+		
+		return model;
+	}
+	@Override
+	public SaleModel createFree(SaleModel model) throws Exception {
+		
+		log.info(String.format("free create 1 model %s", model));
+		
+		if(model.getAttach_files() != null) {
+			String fileName = this.getFileName(model);
+			
+			for(MultipartModel multipartModel : model.getAttach_files()) {
+				multipartModel.setFile_name(fileName);
+				
+				model.setOrgname(multipartModel.getFile_org_name());
+				model.setFilename(multipartModel.getFile_name());
+			}
+			
+			this.createLocalFile(model.getAttach_files());
+			
+		}
+//		else {
+//			if(model.getLCTRE_INTRCN() != null && !"".equals(model.getLCTRE_INTRCN())) {
+//				model = new AcademicstatusModel();
+//				model.setOid(model.getOid());
+//				model.setUrl(model.getProofUrl());
+//				model.setConfirmed("N");
+//				
+//				academicstatusService.create(model);
+//			}
+//		}
+		
+//		saleService.createFree(model);
+		log.info(String.format("free create 2 model %s", model));
+		
+		saleDao.createFree(model);
+		
+		return model;
+	}
+	private String getFileName(SaleModel model) throws Exception {
+		return DateUtil.stringFormatSSS() + new Random().nextInt();
+	}
+	private void createLocalFile(MultipartModel[] multipartModels) throws Exception {
+
+		String localFilePath = propertyService.getString("upload.file.proof.Path");
+
+		FileUtil.checkDirectory(localFilePath);
+		
+		for (MultipartModel multipartModel : multipartModels) {
+			FileUtil.createFile(multipartModel, localFilePath);
 		}
 	}
 

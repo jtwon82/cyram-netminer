@@ -89,7 +89,7 @@
 
 					<tr>
 						<th style="width: 50px">ID</th>
-						<th style="width: 80px">신청일시</th>
+						<th style="width: 80px">신청일</th>
 						<th style="width: 50px">성함</th>
 						<th style="width: 80px">국가</th>
 						<th style="width: 80px">소속 기관</th>
@@ -105,40 +105,19 @@
 
 					<c:forEach var="saleModel" items="${list}">
 						<tr>
-							<c:choose>
-								<c:when test="${saleModel.serialnum == '미발급'}">
-									<td style="color: red">${saleModel.serialnum}</td>
-								</c:when>
-								<c:otherwise>
-									<td>${saleModel.serialnum}</td>
-								</c:otherwise>
-							</c:choose>
-
-							<c:choose>
-								<c:when test="${saleModel.replacedid == '최신'}">
-									<td>${saleModel.replacedid}</td>
-								</c:when>
-								<c:otherwise>
-									<td><a href="javascript:view('${saleModel.replacedid}');"
-										style="color: red">${saleModel.replacedid}</a></td>
-								</c:otherwise>
-							</c:choose>
-
-							<td><a href="javascript:view('${saleModel.saleid}');">${saleModel.saleid}</a>
-							</td>
 							<td>${saleModel.loginid}</td>
-							<td>${saleModel.fullname}</td>
-							<td>${saleModel.orgname}</td>
-							<td>${saleModel.email}</td>
-							<td>CYNM4${saleModel.productserial}</td>
-							<td>${saleModel.licenseusage_name}</td>
-							<td>${saleModel.licenseterm_name}</td>
-							<td>${saleModel.licensesize_name}</td>
 							<td>${saleModel.saledate}</td>
-							<td>${saleModel.expiredate}</td>
-							<!--         <td> -->
-							<%--           ${saleModel.oid} --%>
-							<!--         </td> -->
+							<td>${saleModel.APPLCNT_NM}</td>
+							<td>${saleModel.NATION_CODE}</td>
+							<td>${saleModel.PSITN_INSTT}</td>
+							<td>${saleModel.PSITN_SUBJCT}</td>
+							<td>${saleModel.CHARGER_EMAIL}</td>
+							<td>${saleModel.LCTRE_NM}</td>
+							<td>${saleModel.ATNLC_NMPR}</td>
+							<td>${saleModel.LCTRE_INTRCN}</td>
+							<td>${saleModel.filename}</td>
+							<td>${saleModel.agree2}</td>
+							<td>${saleModel.RESULT}</td>
 						</tr>
 					</c:forEach>
 

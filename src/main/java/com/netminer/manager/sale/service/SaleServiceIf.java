@@ -36,4 +36,9 @@ public interface SaleServiceIf {
 	public SaleModel getProductpackagePriceList(SaleModel model) throws Exception;
 	public void setTutorialMail(DownloadModel downloadModel) throws Exception;
 	public void saveSdcRecord(DownloadModel downloadModel) throws Exception;
+	
+
+	public List<SaleModel> readFreeList(SaleModel model) throws Exception;
+	public SaleModel readFree(SaleModel model) throws Exception;
+
 }

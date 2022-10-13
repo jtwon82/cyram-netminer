@@ -7,13 +7,18 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cyframe.controller.CyframeController;
 import com.cyframe.property.PropertyServiceIf;
 import com.netminer.download_buy.buy.model.BuyModel;
 import com.netminer.download_buy.buy.service.BuyServiceIf;
+import com.netminer.manager.sale.model.SaleModel;
+
+import lombok.extern.log4j.Log4j;
 
 @Controller
+@Log4j
 public class BuyController extends CyframeController {
 
 	@Inject
@@ -46,7 +51,7 @@ public class BuyController extends CyframeController {
 		
 		return super.convertKor("/download_buy/buy/buy-read");
 	}
-
+	
 	@RequestMapping("/download_buy/buy/buy_package-ajax.do")
 	public String package_ajax_read(BuyModel buyModel, Model model) throws Exception {
 		BuyModel rBuyModel = buyService.read_package(buyModel);
@@ -112,5 +117,26 @@ public class BuyController extends CyframeController {
 		return super.convertKor("/download_buy/buy/buycomplete-popup");
 	}
 	
+
+	@RequestMapping("/download_buy/buy/free-read.do")
+	public String readFree(SaleModel saleModel, Model model) throws Exception {
+//		SaleModel saleModel = buyService.readFree(saleModel);
+		
+		model.addAttribute("saleModel", buyService.readFree(saleModel));
+		
+		return super.convertKor("/download_buy/buy/free-read");
+	}
+	@RequestMapping("/download_buy/buy/free-create.do")
+	public @ResponseBody String createFree(SaleModel saleModel) throws Exception {
+		if("".equals(saleModel.getSessionId())) {
+			return "NOT_FOUND_LOGINID";
+		}
+		else {
+			buyService.createFree(saleModel);
+		}
+		log.info(String.format("saleModel %s", saleModel));
+		
+		return "SUCCESS";
+	}
 }
 

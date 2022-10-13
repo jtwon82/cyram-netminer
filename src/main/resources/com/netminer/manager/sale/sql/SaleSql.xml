@@ -638,4 +638,73 @@
 			AND customer = #sessionId#
 	</select>
 
+
+
+	<select id="SaleDao.readFreeTotal" 
+		parameterClass="com.netminer.manager.sale.model.SaleModel" 
+		resultClass="int">
+		SELECT 
+			COUNT(A.saleid)
+		FROM sale A
+		WHERE 1 = 1
+
+		<include refid="saleListWhere"/>
+	</select>
+
+	<select id="SaleDao.readFreeList" 
+		parameterClass="com.netminer.manager.sale.model.SaleModel" 
+		resultClass="com.netminer.manager.sale.model.SaleModel">
+		SELECT *
+		FROM sale A
+		
+		WHERE 1 = 1
+
+		<include refid="saleListWhere"/>
+		
+		ORDER BY A.saleid DESC
+		LIMIT #pageNo#, #listCount#
+	</select>
+
+	<select id="SaleDao.readFree" 
+		parameterClass="com.netminer.manager.sale.model.SaleModel" 
+		resultClass="com.netminer.manager.sale.model.SaleModel">
+		SELECT *
+		FROM sale A
+
+		WHERE 1 = 1
+		AND A.saleid = #saleid#
+	</select>
+
+	<insert id="SaleDao.createFree"
+		parameterClass="com.netminer.manager.sale.model.SaleModel">
+		INSERT INTO sale
+		(
+			loginid
+			, saledate, saletime, saletype
+			, NATION_CODE, APPLCNT_NM, PSITN_INSTT, PSITN_SUBJCT, CHARGER_EMAIL
+			, LCTRE_NM, ATNLC_NMPR, LCTRE_INTRCN, orgname, filename
+			, agree2, agree3
+		) VALUES (
+			#sessionId#
+			, DATE_FORMAT(NOW(),'%Y%m%d')
+			, DATE_FORMAT(NOW(),'%H%m%s')
+			, 'free'
+			, #NATION_CODE#
+			, #APPLCNT_NM#
+			, #PSITN_INSTT#
+			, #PSITN_SUBJCT#
+			, #CHARGER_EMAIL#
+			, #LCTRE_NM#
+			, #ATNLC_NMPR#
+			, #LCTRE_INTRCN#
+			, #orgname#
+			, #filename#
+			, #agree2#, #agree3#
+		)
+		
+		<selectKey keyProperty="saleid" resultClass="string">
+			SELECT last_insert_id()
+		</selectKey>
+	</insert>
+
 </sqlMap>

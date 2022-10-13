@@ -7,7 +7,7 @@
 <head>
 <title></title>
 
-<script type="text/javascript" src="/js/buy_view.js"></script>
+<script type="text/javascript" src="/js/buy_view.js?"></script>
 <script>
 	function fn_moveBuy(licenseusage) {
 		<c:choose>
@@ -27,6 +27,23 @@
 		</c:otherwise>
 		</c:choose>
 	}
+	function fn_moveBuyFree(){
+		var buyModel = document.getElementById("buyModel");
+		
+		<c:choose>
+		<c:when test="${ buyModel.login eq 'false' }">
+		if (confirm("<c:out value = '${msg_login_confirm}'/>")) {
+			top.location.href = "/login/login-read.do";
+			return;
+		}
+		</c:when>
+		<c:otherwise></c:otherwise>
+		</c:choose>
+
+		buyModel.action = "/download_buy/buy/free-read.do";
+		buyModel.submit();
+	}
+	
 </script>
 
 </head>
@@ -71,7 +88,7 @@
 				</dl>
 				<dl>
 					<dt>
-						<a href="javascript:fn_moveUpgrage('10');"><img class="bottom"
+						<a href="javascript:fn_moveBuyFree('free');"><img class="bottom"
 							src="/images/sub/buy_educational_ko.png" alt="trial" width="885" height="123"/></a>
 					</dt>
 				</dl>

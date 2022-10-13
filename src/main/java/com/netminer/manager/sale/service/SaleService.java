@@ -487,7 +487,7 @@ public class SaleService implements SaleServiceIf {
 
 		return list;
 	}
-
+	
 	/**
 	 * 해당 사용자에 대한 구매내역
 	 */
@@ -1249,4 +1249,71 @@ public class SaleService implements SaleServiceIf {
 	public void saveSdcRecord(DownloadModel downloadModel) throws Exception {
 		saleDao.saveSdcRecord(downloadModel);
 	}
+	
+	
+
+	@Override
+	public List<SaleModel> readFreeList(SaleModel model) throws Exception {
+		List<SaleModel> list = null;
+		int totalCount = saleDao.readFreeTotal(model);
+		
+		if(totalCount > 0) {
+			model.setTotalCount(totalCount);
+			list = saleDao.readFreeList(model);
+		}
+
+		return list;
+	}
+	
+	@Override
+	public SaleModel readFree(SaleModel model) throws Exception {
+		SaleModel rModel = saleDao.readFree(model);
+		
+		if(rModel == null) {
+			rModel = new SaleModel();
+		} else {
+			rModel = (SaleModel) ModelConverterUtil.convert(model, rModel);
+		}
+//		
+//		//license usages, terms, sizes
+//		rModel.setLicenseusagesList(licenseService.readList_usages(rModel.getProductid()));
+//		rModel.setLicensetermsList(licenseService.readList_terms(rModel.getProductid()));
+//		rModel.setLicensesizesList(licenseService.readList_sizes(rModel.getProductid()));
+//		
+//		rModel.setEditionList(this.setEditionModelList(rModel));
+//		// country list
+//		rModel.setCountryList(licenseService.readList_terms(rModel.getProductid()));
+//		
+//		//product package
+//		List<ProductpackageModel> productpackageModelList = this.setProductpackageModelList(rModel);
+//		
+//		//sale package
+//		this.setPackages(rModel, productpackageModelList);
+//		
+//		ExtensionModel[] purchasedExtensions = getExtensionsArray(rModel.getProductserial(), rModel.getLicenseusage());
+//		String[] extensionIds = new String[purchasedExtensions.length];
+//		for(int i = 0; i < purchasedExtensions.length; i++) {
+//			extensionIds[i] = purchasedExtensions[i].getExtensionId();
+//		}
+//		rModel.setExtensions(extensionIds);
+//		rModel.setExtensionNames(Arrays.stream(purchasedExtensions).map(e -> e.getLabel()).collect(Collectors.joining(", ")));
+//		
+//		this.setAvailableExtensions(rModel, purchasedExtensions);
+//		
+//		//next_productserial
+//		SaleModel npModel = saleDao.read_next_productserial();
+//		rModel.setNext_productserial(npModel.getNext_productserial());
+//		
+//		//Next_hardwarekey
+//		rModel.setNext_hardwarekey(String.valueOf(this._setHardwareKey()));
+//		
+//		//proof
+//		this.setAcademicstatus(rModel);
+//		
+//		//payment
+//		this.setPayment(rModel);
+		
+		return rModel;
+	}
+
 }

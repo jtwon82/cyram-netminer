@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.cyframe.model.CyframeModel;
 import com.cyframe.model.MultipartModel;
+import com.cyframe.model.NationModel;
 import com.cyframe.model.SelectBoxModel;
 import com.netminer.manager.edition.model.EditionModel;
 import com.netminer.manager.edition.model.EditionpackageModel;
@@ -145,6 +146,33 @@ public class SaleModel extends CyframeModel implements Cloneable {
 	private List<EditionpackageModel> edtionpackageModelList;
 	
 	@Getter @Setter private List<ExtensionModel> availableExtensions = new ArrayList<>();
+	
+	
+
+	/* 
+	 * free education	
+	 * */
+	@Getter @Setter private List<NationModel> nationList;
+	@Getter @Setter private String NATION_CODE;
+	@Getter @Setter private String APPLCNT_NM;
+	@Getter @Setter private String PSITN_INSTT;
+	@Getter @Setter private String PSITN_SUBJCT;
+	@Getter @Setter private String CHARGER_EMAIL;
+	@Getter @Setter private String LCTRE_NM;
+	@Getter @Setter private String ATNLC_NMPR;
+	@Getter @Setter private String LCTRE_INTRCN;
+	@Getter @Setter private String RESULT;
+	@Getter @Setter private String agree2;
+	@Getter @Setter private String agree3;
+
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public String[] getSaleids() {
 		return saleids;

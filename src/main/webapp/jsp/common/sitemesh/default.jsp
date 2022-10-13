@@ -147,6 +147,6 @@ page.init();
 
 
 <div id="downloadFileHTML" style="display:none;"></div>
-<div id="return_message" style="display:none"></div>
+<div id="return_message" style="display:none1"></div>
 </body>
 </html>

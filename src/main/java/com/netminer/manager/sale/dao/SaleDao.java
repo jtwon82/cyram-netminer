@@ -120,5 +120,20 @@ public class SaleDao extends IbatisAbstractDAO {
 	public void saveSdcRecord(DownloadModel downloadModel) throws Exception {
 		create("SaleDao.extensions.record", downloadModel);
 	}
+
+
+
 	
+	public int readFreeTotal(SaleModel model) throws Exception {
+		return (Integer) read("SaleDao.readFreeTotal", model);
+	}
+	public List<SaleModel> readFreeList(SaleModel model) throws Exception {
+		return (List<SaleModel>) readList("SaleDao.readFreeList", model);
+	}
+	public SaleModel readFree(SaleModel model) throws Exception {
+		return (SaleModel) read("SaleDao.readFree", model);
+	}
+	public String createFree(SaleModel model) throws Exception {
+		return (String) create ("SaleDao.createFree", model);
+	}
 }

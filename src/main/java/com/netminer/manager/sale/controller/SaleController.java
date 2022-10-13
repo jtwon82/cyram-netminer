@@ -86,43 +86,6 @@ public class SaleController extends CyframeController {
 	}
 
 	
-	@RequestMapping("/manager/sale/free-readList.do")
-	public String freeReadList(SaleModel saleModel, Model model) throws Exception {
-		String s_year = saleModel.getS_year();
-		
-		if(s_year == null || "".equals(s_year)) {
-			String today = DateUtil.dailyformat();
-			
-			saleModel.setS_year(today.substring(0, 4));
-			saleModel.setS_month(today.substring(4, 6));
-			saleModel.setS_day(today.substring(6, 8));
-			
-			saleModel.setE_year(today.substring(0, 4));
-			saleModel.setE_month(today.substring(4, 6));
-			saleModel.setE_day(today.substring(6, 8));
-		}
-
-		saleModel.setListCount(propertyService.getInt("manager.board.list.count"));
-		
-		List<SaleModel> list = saleService.readList(saleModel);
-
-		model.addAttribute("saleModel", saleModel);
-		model.addAttribute("list", list);
-		model.addAttribute("moveLinkPageScript", PageNavigationTagUtil.getMoveLinkPageScript("saleModel"));
-		model.addAttribute("moveLinkPagePrint", PageNavigationTagUtil.getMoveLinkPagePrint(saleModel.getListCount(), propertyService.getInt("manager.board.page.count"), saleModel.getTotalCount(), saleModel.getPageNo()));
-		
-		return "/manager/sale/free-readList";
-	}
-	
-	@RequestMapping("/manager/sale/free-read.do")
-	public String freeRead(SaleModel saleModel, Model model) throws Exception {
-		SaleModel rSaleModel = saleService.read(saleModel);
-		
-		model.addAttribute("saleModel", rSaleModel);
-
-		return "/manager/sale/free-read";
-	}
-	
 	@RequestMapping("/manager/sale/productPackage-ajax.do")
 	public String productPackage_read(SaleModel saleModel, Model model) throws Exception {
 		SaleModel rSaleModel = saleService.getProductpackagePriceList(saleModel);
@@ -264,6 +227,45 @@ public class SaleController extends CyframeController {
 		saleService.delete(saleModel);
 		
 		return ConstantModel.AJAX_RETURN_URL;
+	}
+	
+	
+
+	@RequestMapping("/manager/sale/free-readList.do")
+	public String freeReadList(SaleModel saleModel, Model model) throws Exception {
+		String s_year = saleModel.getS_year();
+		
+		if(s_year == null || "".equals(s_year)) {
+			String today = DateUtil.dailyformat();
+			
+			saleModel.setS_year(today.substring(0, 4));
+			saleModel.setS_month(today.substring(4, 6));
+			saleModel.setS_day(today.substring(6, 8));
+			
+			saleModel.setE_year(today.substring(0, 4));
+			saleModel.setE_month(today.substring(4, 6));
+			saleModel.setE_day(today.substring(6, 8));
+		}
+
+		saleModel.setListCount(propertyService.getInt("manager.board.list.count"));
+		
+		List<SaleModel> list = saleService.readFreeList(saleModel);
+
+		model.addAttribute("saleModel", saleModel);
+		model.addAttribute("list", list);
+		model.addAttribute("moveLinkPageScript", PageNavigationTagUtil.getMoveLinkPageScript("saleModel"));
+		model.addAttribute("moveLinkPagePrint", PageNavigationTagUtil.getMoveLinkPagePrint(saleModel.getListCount(), propertyService.getInt("manager.board.page.count"), saleModel.getTotalCount(), saleModel.getPageNo()));
+		
+		return "/manager/sale/free-readList";
+	}
+	
+	@RequestMapping("/manager/sale/free-read.do")
+	public String freeRead(SaleModel saleModel, Model model) throws Exception {
+		SaleModel rSaleModel = saleService.readFree(saleModel);
+		
+		model.addAttribute("saleModel", rSaleModel);
+
+		return "/manager/sale/free-read";
 	}
 	
 }
