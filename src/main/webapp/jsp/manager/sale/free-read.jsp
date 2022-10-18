@@ -255,12 +255,10 @@
 		<form:form commandName="saleModel">
 		<div id="editionpackage"></div>
 		
+			<form:hidden path="saleid" />
 			<form:hidden path="pageNo" />
 			<form:hidden path="searchKind" />
 			<form:hidden path="searchWord" />
-
-			<form:hidden path="licenseKeyYN" />
-			<form:hidden path="shippingYN" />
 
 			<form:hidden path="s_year" />
 			<form:hidden path="s_month" />
@@ -268,20 +266,6 @@
 			<form:hidden path="e_year" />
 			<form:hidden path="e_month" />
 			<form:hidden path="e_day" />
-			
-			<form:hidden path="licenseusagefactor" />
-			<form:hidden path="licensetermfactor" />
-			<form:hidden path="licensesizefactor" />
-			<form:hidden path="filename" />
-			<form:hidden path="wintype" />
-
-			<form:hidden path="saleid" />
-			<form:hidden path="pay" value="A" />
-      <form:hidden path="licenseusage_name" />
-      <form:hidden path="licenseterm_name" />
-      <form:hidden path="licensesize_name" />
-      <form:hidden path="edition_name" />
-      <form:hidden path="education" />
       
       
 	<div class="viewlist">
@@ -363,7 +347,8 @@
 					</tr>
 					<tr>
 						<td style="width:130px;height:28px;" class="mdt15 mdb10">결과</td>
-						<td class="mdt15 mdb10"><form:input path="loginid"
+						<td class="mdt15 mdb10"><form:select path="RESULT"
+							items="${saleModel.yesnoList}" itemLabel="text" itemValue="value"
 								class="input_w200" /></td>
 					</tr>
 					

@@ -27,6 +27,22 @@
 		</c:otherwise>
 		</c:choose>
 	}
+	function fn_moveBuyFree(){
+		var buyModel = document.getElementById("buyModel");
+		
+		<c:choose>
+		<c:when test="${ buyModel.login eq 'false' }">
+		if (confirm("<c:out value = '${msg_login_confirm}'/>")) {
+			top.location.href = "/login/login-read.do";
+			return;
+		}
+		</c:when>
+		<c:otherwise></c:otherwise>
+		</c:choose>
+
+		buyModel.action = "/download_buy/buy/free-read.do";
+		buyModel.submit();
+	}
 </script>
 
 </head>
@@ -67,6 +83,12 @@
 					<dt>
 						<a href="javascript:fn_moveBuy('8');"><img class="bottom"
 							src="/images/sub/buy_commercial_en.png" alt="commercial" /></a>
+					</dt>
+				</dl>
+				<dl>
+					<dt>
+						<a href="javascript:fn_moveBuyFree('free');"><img class="bottom"
+							src="/images/sub/buy_educational_en.png" alt="trial" width="885" height="123"/></a>
 					</dt>
 				</dl>
 				<dl>

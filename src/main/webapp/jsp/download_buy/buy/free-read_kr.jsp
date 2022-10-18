@@ -6,6 +6,8 @@
 <html>
 <head>
 <title></title>
+<script type="text/javascript" src="/js/jquery-relation.min.js"></script>
+<script type="text/javascript" src="/js/jquery.form.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 <script type="text/javascript">
@@ -46,13 +48,13 @@
 	function checkVal(){
 		var f= document.saleModel;
 
-		if(f.APPLCNT_NM.value==''){	alert("신청자이름 을 입력해주세요."); return false;	}
-		if(f.PSITN_INSTT.value==''){	alert("소속기관 을 입력해주세요."); return false;	}
-		if(f.PSITN_SUBJCT.value==''){	alert("소속학과 을 입력해주세요."); return false;	}
-		if(f.CHARGER_EMAIL.value==''){	alert("담당자이메일 을 입력해주세요."); return false;	}
-		if(f.LCTRE_NM.value==''){	alert("강의이름 을 입력해주세요."); return false;	}
-		if(f.ATNLC_NMPR.value==''){	alert("수강인원 을 입력해주세요."); return false;	}
-		if(f.LCTRE_INTRCN.value==''){	alert("강의소개 을 입력해주세요."); return false;	}
+		if(f.APPLCNT_NM.value==''){	alert("신청자이름 을 입력해주세요."); f.APPLCNT_NM.focus();	return false;	}
+		if(f.PSITN_INSTT.value==''){	alert("소속기관 을 입력해주세요."); f.PSITN_INSTT.focus(); return false;	}
+		if(f.PSITN_SUBJCT.value==''){	alert("소속학과 을 입력해주세요."); f.PSITN_SUBJCT.focus();	return false;	}
+		if(f.CHARGER_EMAIL.value==''){	alert("담당자이메일 을 입력해주세요."); f.CHARGER_EMAIL.focus();	return false;	}
+		if(f.LCTRE_NM.value==''){	alert("강의이름 을 입력해주세요."); f.LCTRE_NM.focus();	return false;	}
+		if(f.ATNLC_NMPR.value==''){	alert("수강인원 을 입력해주세요."); f.ATNLC_NMPR.focus();	return false;	}
+		if(f.LCTRE_INTRCN.value==''){	alert("강의소개 을 입력해주세요."); f.LCTRE_INTRCN.focus();	return false;	}
 
 		var chkCnt= 0;
 		if(f.LCTRE_INTRCN.value.trim()==''){		chkCnt++;	}
@@ -68,7 +70,7 @@
 
 </head>
 
-<body>
+<body onload="">
 	<div id="editionpackage" style="display: none"></div>
 	<!--하단컨텐츠-->
 	<div id="container02">
@@ -85,7 +87,7 @@
 							<li class=" font12_black" style="padding:20px 0;">Free Educational 은 교육 기관의 강사 또는 교수자를 위한 플랜입니다.<br>
 								강의/수업을 목적으로 NetMiner를 무료로 이용할 수 있습니다.
 							</li>
-							<li>
+							<li class="content_table">
 				<table width="610" border="0" cellspacing="0" cellpadding="0" class="buss_tb2">
 					<tr>
 						<td style="width:130px;height:28px;" class="mdt15 mdb10">성함</td>
@@ -94,7 +96,7 @@
 					</tr>
 					<tr>
 						<td style="width:130px;height:28px;" class="mdt15 mdb10">국가</td>
-						<td class="mdt15 mdb10"><form:select path="NATION_CODE" value=""
+						<td class="mdt15 mdb10"><form:select path="NATION_CODE" value="${NATION_CODE }"
 							items="${saleModel.nationList}" itemLabel="NATION_NAME_KR" itemValue="NATION_CODE"
 								class="input_w200" /><script>$("select").select2();</script></td>
 					</tr>
@@ -121,7 +123,7 @@
 					<tr>
 						<td style="width:130px;height:28px;" class="mdt15 mdb10">수강 인원</td>
 						<td class="mdt15 mdb10"><form:input path="ATNLC_NMPR" value=""
-							type="number"
+							type="number" min="5" max="100"
 								class="input_w200" /> * 라이선스 사용 인원. 최소 5인 이상</td>
 					</tr>
 					<tr>
@@ -136,7 +138,7 @@
 							</li>
 							<li class=" font12_black" style="padding:20px 0;">
 								<input type='checkbox' id="agree" name="agree" class="" value="Y" /> 모두 동의<br/>
-								<input type='checkbox' id="agree2" name="agree2" class="agree" value="Y" /> 개인정보보호정책에 따라 귀하의 개인 정보를 서비스 제공 목적으로 활용하는 것에 동의합니다 .<br/>
+								<input type='checkbox' id="agree2" name="agree2" class="agree" value="Y" /> 개인정보보호정책에 따라 귀하의 개인 정보를 서비스 제공 목적으로 활용하는 것에 동의합니다 . *<br/>
 								<input type='checkbox' id="agree3" name="agree3" class="agree" value="Y" /> 유용한 정보 , 혜택 안내 등을 위한 이메일 수신에 동의합니다.<br/>
 							</li>
 							<li class="mdl300">
@@ -154,6 +156,9 @@
 	$("#agree").click(function(){
 		$(".agree").prop("checked", this.checked);
 	});
+	if('${popup}'=='popup'){
+		$("body").html('${saleModel.LCTRE_INTRCN}');
+	}
 </script>
 </body>
 </html>

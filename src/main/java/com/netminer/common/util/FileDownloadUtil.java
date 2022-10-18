@@ -24,7 +24,8 @@ public class FileDownloadUtil {
 	 * @param response
 	 * @throws Exception
 	 */
-	public static void download(HttpServletRequest request, HttpServletResponse response, String localFile, String orgFileName) throws Exception {
+	public static void download(HttpServletRequest request, HttpServletResponse response
+			, String localFile, String orgFileName) throws Exception {
 		File uFile = new File(localFile);
 		int fSize = (int) uFile.length();
 

@@ -37,7 +37,7 @@ jar {
 }
 
 war {
-	archiveName = 'NetMiner.war'
+	archiveName = 'ROOT.war'
 	excludes = ['**/spring-properties-dev.xml', '**/spring-properties-test.xml']
 }
 

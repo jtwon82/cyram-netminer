@@ -134,6 +134,8 @@ public class SaleModel extends CyframeModel implements Cloneable {
 	private List<SelectBoxModel> countryList;
 	
 	private List<EditionModel> editionList;
+	
+	@Setter private List<SelectBoxModel> yesnoList;
 
 	// 구매할 수 있는 모든 패키지 목록
 	private List<ProductpackageModel> productpackageModelList;
@@ -149,23 +151,14 @@ public class SaleModel extends CyframeModel implements Cloneable {
 	
 	
 
-	/* 
-	 * free education	
-	 * */
-	@Getter @Setter private List<NationModel> nationList;
-	@Getter @Setter private String NATION_CODE;
-	@Getter @Setter private String APPLCNT_NM;
-	@Getter @Setter private String PSITN_INSTT;
-	@Getter @Setter private String PSITN_SUBJCT;
-	@Getter @Setter private String CHARGER_EMAIL;
-	@Getter @Setter private String LCTRE_NM;
-	@Getter @Setter private String ATNLC_NMPR;
-	@Getter @Setter private String LCTRE_INTRCN;
-	@Getter @Setter private String RESULT;
-	@Getter @Setter private String agree2;
-	@Getter @Setter private String agree3;
-
-	
+	public List<SelectBoxModel> getYesnoList() {
+		if(yesnoList==null) {
+			yesnoList= new ArrayList<SelectBoxModel>();
+		}
+		yesnoList.add(new SelectBoxModel("Y","Y"));
+		yesnoList.add(new SelectBoxModel("N","N"));
+		return yesnoList;
+	}
 	
 	
 	
@@ -855,4 +848,34 @@ public class SaleModel extends CyframeModel implements Cloneable {
 	public void setRangeChk(String rangeChk) {
 		this.rangeChk = rangeChk;
 	}
+	
+
+	/* 
+	 * free education	
+	 * */
+	@Getter @Setter private List<NationModel> nationList;
+	@Getter @Setter private String NATION_CODE;
+	@Getter @Setter private String APPLCNT_NM;
+	@Getter @Setter private String PSITN_INSTT;
+	@Getter @Setter private String PSITN_SUBJCT;
+	@Getter @Setter private String CHARGER_EMAIL;
+	@Getter @Setter private String LCTRE_NM;
+	@Getter @Setter private String ATNLC_NMPR;
+	@Getter @Setter private String LCTRE_INTRCN;
+	@Getter @Setter private String RESULT;
+	@Getter @Setter private String agree2;
+	@Getter @Setter private String agree3;
+	@Setter private List<SelectBoxModel> selectBoxFreeSearchFld;
+
+	public List<SelectBoxModel> getSelectBoxFreeSearchFld() {
+		selectBoxFreeSearchFld = new ArrayList<SelectBoxModel>();
+		// 성함, 국가, 소속 기관, 소속 학과, 이메일, 강의명
+		selectBoxFreeSearchFld.add(new SelectBoxModel("성함","APPLCNT_NM"));
+		selectBoxFreeSearchFld.add(new SelectBoxModel("국가","NATION_CODE"));
+		selectBoxFreeSearchFld.add(new SelectBoxModel("소속기관","PSITN_INSTT"));
+		selectBoxFreeSearchFld.add(new SelectBoxModel("이메일","CHARGER_EMAIL"));
+		selectBoxFreeSearchFld.add(new SelectBoxModel("강의","LCTRE_INTRCN"));
+		return selectBoxFreeSearchFld;
+	}
+	
 }

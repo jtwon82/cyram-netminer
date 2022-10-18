@@ -40,6 +40,18 @@
 			trObj.style.backgroundColor = oldColor;
 		};
 	}
+	
+	function windowOpen(url, name, width, height, scroll){
+		var pop= window.open(url, name, 'width='+width+',height='+height+',scrollbars='+scroll+',resizable=yes,toolbar=no,location=no,status=no,menubar=no');
+		pop.focus();
+	}
+	function downloadFile(bf_file, bf_source) {
+		$("body").append("<iframe name='filedownload' style = 'width:0px;height0px;display:none'></iframe>");
+		var formData = "<form name='attachFileModel' method = 'post' target = 'filedownload' "
+				+ " action = '/common/attachfile/attachFile_proof-read.do?bf_file="+ bf_file
+				+ "&bf_source=" + bf_source + "'></form>";
+		$(formData).appendTo('body').submit().remove();
+	}
 </script>
 
 </head>
@@ -59,7 +71,7 @@
 			<div class="viewsearch  mdl10">
 				<ul>
 					<li class="mdt10 mdl10"><form:select path="searchKind"
-							items="${saleModel.selectBoxModelList}" itemLabel="text"
+							items="${saleModel.selectBoxFreeSearchFld}" itemLabel="text"
 							itemValue="value" /> <form:input id="searchWord"
 							path="searchWord" class="input_w300"
 							onkeydown="javascript:if(event.keyCode == 13) search();" /></li>
@@ -105,7 +117,7 @@
 
 					<c:forEach var="saleModel" items="${list}">
 						<tr>
-							<td>${saleModel.loginid}</td>
+							<td><a href="javascript:view('${saleModel.saleid}');">${saleModel.saleid}</a></td>
 							<td>${saleModel.saledate}</td>
 							<td>${saleModel.APPLCNT_NM}</td>
 							<td>${saleModel.NATION_CODE}</td>
@@ -114,8 +126,11 @@
 							<td>${saleModel.CHARGER_EMAIL}</td>
 							<td>${saleModel.LCTRE_NM}</td>
 							<td>${saleModel.ATNLC_NMPR}</td>
-							<td>${saleModel.LCTRE_INTRCN}</td>
-							<td>${saleModel.filename}</td>
+							<td><a href="javascript:windowOpen('/download_buy/buy/free-read-popup.do?saleid=${saleModel.saleid}','name','500','600','yes')">${saleModel.LCTRE_INTRCN}</a></td>
+							<td><c:if test="${not empty saleModel.orgname}">
+									<a href="javascript:downloadFile('<c:out value="${saleModel.filename}"/>', '<c:out value="${saleModel.orgname}"/>');"><c:out
+										value="${saleModel.orgname}" /></a>
+								</c:if></td>
 							<td>${saleModel.agree2}</td>
 							<td>${saleModel.RESULT}</td>
 						</tr>

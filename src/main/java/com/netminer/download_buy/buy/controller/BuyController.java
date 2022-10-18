@@ -126,6 +126,12 @@ public class BuyController extends CyframeController {
 		
 		return super.convertKor("/download_buy/buy/free-read");
 	}
+	@RequestMapping("/download_buy/buy/free-read-popup.do")
+	public String readFreePopup(SaleModel saleModel, Model model) throws Exception {
+		model.addAttribute("popup", "popup");
+		model.addAttribute("saleModel", buyService.readFree(saleModel));
+		return super.convertKor("/download_buy/buy/free-read");
+	}
 	@RequestMapping("/download_buy/buy/free-create.do")
 	public @ResponseBody String createFree(SaleModel saleModel) throws Exception {
 		if("".equals(saleModel.getSessionId())) {

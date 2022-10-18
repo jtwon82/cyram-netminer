@@ -9,6 +9,14 @@ public class SelectBoxModel implements Serializable {
 
 	private String text;
 	private String value;
+
+	public SelectBoxModel() {
+	}
+	
+	public SelectBoxModel(String _text, String _value) {
+		text=_text;
+		value=_value;
+	}
 	
 	public String getText() {
 		return text;

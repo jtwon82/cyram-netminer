@@ -640,6 +640,18 @@
 
 
 
+	<sql id="saleListWhereFree">
+		<isEqual property="rangeChk" compareValue="Y">
+			AND A.saledate BETWEEN CONCAT(#s_year#, #s_month#, #s_day#) AND CONCAT(#e_year#, #e_month#, #e_day#)
+		</isEqual>
+		<isNotEmpty property="searchWord">
+			<isEqual property="searchKind" compareValue="APPLCNT_NM">AND A.APPLCNT_NM LIKE CONCAT('%',#searchWord#,'%')</isEqual>
+			<isEqual property="searchKind" compareValue="NATION_CODE">AND A.NATION_CODE LIKE CONCAT('%',#searchWord#,'%')</isEqual>
+			<isEqual property="searchKind" compareValue="PSITN_INSTT">AND A.PSITN_INSTT LIKE CONCAT('%',#searchWord#,'%')</isEqual>
+			<isEqual property="searchKind" compareValue="CHARGER_EMAIL">AND A.CHARGER_EMAIL LIKE CONCAT('%',#searchWord#,'%')</isEqual>
+			<isEqual property="searchKind" compareValue="LCTRE_INTRCN">AND A.LCTRE_INTRCN LIKE CONCAT('%',#searchWord#,'%')</isEqual>
+		</isNotEmpty>
+	</sql>
 	<select id="SaleDao.readFreeTotal" 
 		parameterClass="com.netminer.manager.sale.model.SaleModel" 
 		resultClass="int">
@@ -648,7 +660,7 @@
 		FROM sale A
 		WHERE 1 = 1
 
-		<include refid="saleListWhere"/>
+		<include refid="saleListWhereFree"/>
 	</select>
 
 	<select id="SaleDao.readFreeList" 
@@ -659,7 +671,7 @@
 		
 		WHERE 1 = 1
 
-		<include refid="saleListWhere"/>
+		<include refid="saleListWhereFree"/>
 		
 		ORDER BY A.saleid DESC
 		LIMIT #pageNo#, #listCount#
@@ -682,7 +694,7 @@
 			loginid
 			, saledate, saletime, saletype
 			, NATION_CODE, APPLCNT_NM, PSITN_INSTT, PSITN_SUBJCT, CHARGER_EMAIL
-			, LCTRE_NM, ATNLC_NMPR, LCTRE_INTRCN, orgname, filename
+			, LCTRE_NM, ATNLC_NMPR, LCTRE_INTRCN, orgname, filename, RESULT
 			, agree2, agree3
 		) VALUES (
 			#sessionId#
@@ -698,7 +710,7 @@
 			, #ATNLC_NMPR#
 			, #LCTRE_INTRCN#
 			, #orgname#
-			, #filename#
+			, #filename#, 'N'
 			, #agree2#, #agree3#
 		)
 		

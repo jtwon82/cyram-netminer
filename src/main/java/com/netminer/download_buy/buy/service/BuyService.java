@@ -372,7 +372,13 @@ public class BuyService implements BuyServiceIf {
 //		} else {
 //			model.setQtyList(1);
 //		}
-		model.setNationList(nationService.readList(model));
+		
+		if("".equals(model.getSaleid())) {
+			model.setNationList(nationService.readList(model));
+			
+		} else {
+			model= saleService.readFree(model);
+		}
 		
 		return model;
 	}
