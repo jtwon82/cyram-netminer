@@ -136,4 +136,10 @@ public class SaleDao extends IbatisAbstractDAO {
 	public String createFree(SaleModel model) throws Exception {
 		return (String) create ("SaleDao.createFree", model);
 	}
+	public String updateFree(SaleModel model) throws Exception {
+		return (String) create ("SaleDao.updateFree", model);
+	}
+	public String deleteFree(SaleModel model) throws Exception {
+		return (String) create ("SaleDao.deleteFree", model);
+	}
 }

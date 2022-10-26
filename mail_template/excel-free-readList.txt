@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+						<th style="width: 80px;">신청일</th>
+						<th style="width: 50px;">성함</th>
+						<th style="width: 80px;">국가</th>
+						<th style="width: 110px;">소속 기관</th>
+						<th style="width: 110px;">소속 학과</th>
+						<th style="width: 110px;">Email</th>
+						<th style="width: 110px;">강의명</th>
+						<th style="width: 110px;">수강인원</th>
+						<th style="width: 110px;">강의소개</th>
+						<th style="width: 110px;">첨부자료</th>
+						<th style="width: 110px;">마케팅동의</th>
+						<th style="width: 80px;">결과</th>
+			</tr>
+		</thead>
+		<tbody>
+			[SaleModel.excelcontent]
+		</tbody>
+	</table>
+</body>
+</html>

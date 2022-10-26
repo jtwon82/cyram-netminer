@@ -69,6 +69,10 @@ public class DateUtil {
 	public static String usFormat(String date) throws Exception {
 		return US_FORMAT.format(DAY_FORMAT.parse(date));
 	}
-	
+
+	public static String getDate(String strtype, Date date){
+		java.text.DateFormat df = new java.text.SimpleDateFormat(strtype);	///"yyyy-MM-dd"
+		return df.format(date).toString();
+	}
 }
 

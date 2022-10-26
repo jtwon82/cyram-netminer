@@ -855,6 +855,8 @@ public class SaleModel extends CyframeModel implements Cloneable {
 	 * */
 	@Getter @Setter private List<NationModel> nationList;
 	@Getter @Setter private String NATION_CODE;
+	@Getter @Setter private String NATION_NAME_KR;
+	@Getter @Setter private String NATION_NAME_EN;
 	@Getter @Setter private String APPLCNT_NM;
 	@Getter @Setter private String PSITN_INSTT;
 	@Getter @Setter private String PSITN_SUBJCT;
@@ -865,7 +867,9 @@ public class SaleModel extends CyframeModel implements Cloneable {
 	@Getter @Setter private String RESULT;
 	@Getter @Setter private String agree2;
 	@Getter @Setter private String agree3;
+	@Getter @Setter private String excelcontent;
 	@Setter private List<SelectBoxModel> selectBoxFreeSearchFld;
+	@Setter private List<SelectBoxModel> selectListYn;
 
 	public List<SelectBoxModel> getSelectBoxFreeSearchFld() {
 		selectBoxFreeSearchFld = new ArrayList<SelectBoxModel>();
@@ -876,6 +880,12 @@ public class SaleModel extends CyframeModel implements Cloneable {
 		selectBoxFreeSearchFld.add(new SelectBoxModel("이메일","CHARGER_EMAIL"));
 		selectBoxFreeSearchFld.add(new SelectBoxModel("강의","LCTRE_INTRCN"));
 		return selectBoxFreeSearchFld;
+	}
+	public List<SelectBoxModel> getSelectListYn() {
+		selectListYn = new ArrayList<SelectBoxModel>();
+		selectListYn.add(new SelectBoxModel("Y","Y"));
+		selectListYn.add(new SelectBoxModel("N","N"));
+		return selectListYn;
 	}
 	
 }

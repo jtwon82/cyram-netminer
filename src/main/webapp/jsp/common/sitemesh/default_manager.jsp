@@ -20,6 +20,7 @@
 	<script type="text/javascript" src="/js/jquery-1.7.min.js"></script>
 	<script type="text/javascript" src="/js/jquery.form.js"></script>
 	<script type="text/javascript" src="/js/top_manager.js"></script>
+	<script type="text/javascript" src="/js/util.js?25"></script>
 	<decorator:head />
 
 </head>

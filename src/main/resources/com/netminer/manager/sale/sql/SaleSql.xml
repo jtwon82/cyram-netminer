@@ -657,7 +657,7 @@
 		resultClass="int">
 		SELECT 
 			COUNT(A.saleid)
-		FROM sale A
+		FROM sale A JOIN NATION_CODE B ON A.NATION_CODE=B.NATION_CODE
 		WHERE 1 = 1
 
 		<include refid="saleListWhereFree"/>
@@ -666,8 +666,8 @@
 	<select id="SaleDao.readFreeList" 
 		parameterClass="com.netminer.manager.sale.model.SaleModel" 
 		resultClass="com.netminer.manager.sale.model.SaleModel">
-		SELECT *
-		FROM sale A
+		SELECT A.*, B.NATION_NAME_KR, B.NATION_NAME_EN
+		FROM sale A JOIN NATION_CODE B ON A.NATION_CODE=B.NATION_CODE 
 		
 		WHERE 1 = 1
 
@@ -711,12 +711,38 @@
 			, #LCTRE_INTRCN#
 			, #orgname#
 			, #filename#, 'N'
-			, #agree2#, #agree3#
+			, case when #agree2#='' or #agree2# is null then 'N' else #agree2# end
+			, case when #agree3#='' or #agree3# is null then 'N' else #agree3# end
 		)
 		
 		<selectKey keyProperty="saleid" resultClass="string">
 			SELECT last_insert_id()
 		</selectKey>
 	</insert>
+	
+	<update id="SaleDao.updateFree" parameterClass="com.netminer.manager.sale.model.SaleModel">
+		UPDATE
+			sale
+		SET	updatedate = now()
+, NATION_CODE = #NATION_CODE#
+, APPLCNT_NM = #APPLCNT_NM#
+, PSITN_INSTT = #PSITN_INSTT#
+, PSITN_SUBJCT = #PSITN_SUBJCT#
+, CHARGER_EMAIL = #CHARGER_EMAIL#
+, LCTRE_NM = #LCTRE_NM#
+, ATNLC_NMPR = #ATNLC_NMPR#
+, LCTRE_INTRCN = #LCTRE_INTRCN#
+, RESULT = #RESULT#
+, agree3 = #agree3#
+		WHERE 1 = 1
+		AND saleid = #saleid#
+	</update>
+
+	<delete id="SaleDao.deleteFree" parameterClass="com.netminer.manager.sale.model.SaleModel">
+		DELETE FROM
+			sale
+		WHERE 1 = 1
+		AND saleid = #saleid#
+	</delete>
 
 </sqlMap>

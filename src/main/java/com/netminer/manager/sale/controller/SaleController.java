@@ -1,10 +1,18 @@
 package com.netminer.manager.sale.controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +23,7 @@ import com.cyframe.property.PropertyServiceIf;
 import com.netminer.common.mail.model.MailModel;
 import com.netminer.common.util.AttachFileTagUtil;
 import com.netminer.common.util.DateUtil;
+import com.netminer.common.util.MailMessageUtil;
 import com.netminer.common.util.PageNavigationTagUtil;
 import com.netminer.manager.productpackage.model.ProductpackageModel;
 import com.netminer.manager.sale.model.SaleLicenseModel;
@@ -232,7 +241,7 @@ public class SaleController extends CyframeController {
 	
 
 	@RequestMapping("/manager/sale/free-readList.do")
-	public String freeReadList(SaleModel saleModel, Model model) throws Exception {
+	public String readFreeList(SaleModel saleModel, Model model) throws Exception {
 		String s_year = saleModel.getS_year();
 		
 		if(s_year == null || "".equals(s_year)) {
@@ -259,8 +268,62 @@ public class SaleController extends CyframeController {
 		return "/manager/sale/free-readList";
 	}
 	
+
+	@RequestMapping(value="/common/download_excel-read.do")
+	public void readFreeListExcel(SaleModel saleModel
+			, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String s_year = saleModel.getS_year();
+		
+		if(s_year == null || "".equals(s_year)) {
+			String today = DateUtil.dailyformat();
+			
+			saleModel.setS_year(today.substring(0, 4));
+			saleModel.setS_month(today.substring(4, 6));
+			saleModel.setS_day(today.substring(6, 8));
+			
+			saleModel.setE_year(today.substring(0, 4));
+			saleModel.setE_month(today.substring(4, 6));
+			saleModel.setE_day(today.substring(6, 8));
+		}
+
+		saleModel.setListCount(100000);
+		
+		List<SaleModel> list = saleService.readFreeList(saleModel);
+		StringBuffer listSb= new StringBuffer();
+		for(SaleModel row: list) {
+			listSb.append("<tr height='50'>");
+			listSb.append(String.format("<td>%s</td>", row.getSaledate()));
+			listSb.append(String.format("<td>%s</td>", row.getAPPLCNT_NM()));
+			listSb.append(String.format("<td>%s</td>", row.getNATION_NAME_KR()));
+			listSb.append(String.format("<td>%s</td>", row.getPSITN_INSTT()));
+			listSb.append(String.format("<td>%s</td>", row.getPSITN_SUBJCT()));
+			listSb.append(String.format("<td>%s</td>", row.getCHARGER_EMAIL()));
+			listSb.append(String.format("<td>%s</td>", row.getLCTRE_NM()));
+			listSb.append(String.format("<td>%s</td>", row.getATNLC_NMPR()));
+			listSb.append(String.format("<td>%s</td>", row.getLCTRE_INTRCN()));
+			listSb.append(String.format("<td>%s</td>", row.getOrgname()));
+			listSb.append(String.format("<td>%s</td>", row.getAgree3()));
+			listSb.append(String.format("<td>%s</td>", row.getRESULT()));
+			listSb.append("</tr>");
+		}
+		saleModel.setExcelcontent(listSb.toString());
+
+		String content= MailMessageUtil
+				.generateContents(saleModel, propertyService.getString("mail.template.Path") + "excel-free-readList");
+		
+		response.setHeader("Content-Disposition", String.format("attachment; filename=free-readList.%s.xls", DateUtil.getDate("yyyy-MM-dd", new Date())));
+		response.setHeader("Content-Type", "application/vnd.ms-excel; charset=utf-8");
+		response.setHeader("Content-Transfer-Encoding", "binary");
+		response.setHeader("Pragma", "no-cache");
+		response.setHeader("Expires", "0");
+		response.setContentLength(content.length());
+		response.setCharacterEncoding("UTF-8");
+        
+        IOUtils.copy(new ByteArrayInputStream(content.getBytes("UTF-8")), response.getOutputStream());
+	}
+	
 	@RequestMapping("/manager/sale/free-read.do")
-	public String freeRead(SaleModel saleModel, Model model) throws Exception {
+	public String readFree(SaleModel saleModel, Model model) throws Exception {
 		SaleModel rSaleModel = saleService.readFree(saleModel);
 		
 		model.addAttribute("saleModel", rSaleModel);
@@ -268,5 +331,18 @@ public class SaleController extends CyframeController {
 		return "/manager/sale/free-read";
 	}
 	
+	@RequestMapping("/manager/sale/free-update.do")
+	public String updateFree(SaleModel saleModel, Model model) throws Exception {
+		saleService.updateFree(saleModel);
+		
+		return ConstantModel.AJAX_RETURN_URL;
+	}
+	
+	@RequestMapping("/manager/sale/free-delete.do")
+	public String deleteFree(SaleModel saleModel, Model model) throws Exception {
+		saleService.deleteFree(saleModel);
+		
+		return ConstantModel.AJAX_RETURN_URL;
+	}
 }
 

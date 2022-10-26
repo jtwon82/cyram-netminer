@@ -9,6 +9,10 @@
 <style>
 .base_color{background-color:hotpink}
 </style>
+<script type="text/javascript" src="/js/jquery-relation.min.js"></script>
+<script type="text/javascript" src="/js/jquery.form.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
 <script type="text/javaScript">
   $(document).ready(function() {
@@ -291,65 +295,70 @@
 				<table width="610" border="0" cellspacing="0" cellpadding="0"
 					class="buss_tb2">
 					<tr>
-						<td style="width:130px;height:28px;" class="mdt15 mdb10">ID</td>
-						<td class="mdt15 mdb10"><form:input path="loginid"
-								class="input_w200" /></td>
-					</tr>
-					<tr>
 						<td style="width:130px;height:28px;" class="mdt15 mdb10">신청일시</td>
-						<td class="mdt15 mdb10"><form:input path="loginid"
+						<td class="mdt15 mdb10"><form:input path="saledate"
 								class="input_w200" /></td>
 					</tr>
 					<tr>
 						<td style="width:130px;height:28px;" class="mdt15 mdb10">성함</td>
-						<td class="mdt15 mdb10"><form:input path="loginid"
+						<td class="mdt15 mdb10"><form:input path="APPLCNT_NM"
 								class="input_w200" /></td>
 					</tr>
 					<tr>
 						<td style="width:130px;height:28px;" class="mdt15 mdb10">국가</td>
-						<td class="mdt15 mdb10"><form:input path="loginid"
-								class="input_w200" /></td>
+						<td class="mdt15 mdb10">
+							<form:select path="NATION_CODE" 
+							items="${saleModel.nationList}" itemLabel="NATION_NAME_KR" itemValue="NATION_CODE"
+								class="input_w200" style="width:217px;"/><script>$("select").select2();</script></td>
 					</tr>
 					<tr>
 						<td style="width:130px;height:28px;" class="mdt15 mdb10">소속 기관</td>
-						<td class="mdt15 mdb10"><form:input path="loginid"
+						<td class="mdt15 mdb10"><form:input path="PSITN_INSTT"
 								class="input_w200" /></td>
 					</tr>
 					<tr>
 						<td style="width:130px;height:28px;" class="mdt15 mdb10">소속 학과</td>
-						<td class="mdt15 mdb10"><form:input path="loginid"
+						<td class="mdt15 mdb10"><form:input path="PSITN_SUBJCT"
 								class="input_w200" /></td>
 					</tr>
 					<tr>
 						<td style="width:130px;height:28px;" class="mdt15 mdb10">소속 기관 이메일</td>
-						<td class="mdt15 mdb10"><form:input path="loginid"
+						<td class="mdt15 mdb10"><form:input path="CHARGER_EMAIL"
 								class="input_w200" /></td>
 					</tr>
 					<tr>
 						<td style="width:130px;height:28px;" class="mdt15 mdb10">강의/수업명</td>
-						<td class="mdt15 mdb10"><form:input path="loginid"
+						<td class="mdt15 mdb10"><form:input path="LCTRE_NM"
 								class="input_w200" /></td>
 					</tr>
 					<tr>
 						<td style="width:130px;height:28px;" class="mdt15 mdb10">수강 인원</td>
-						<td class="mdt15 mdb10"><form:input path="loginid"
+						<td class="mdt15 mdb10"><form:input path="ATNLC_NMPR"
 								class="input_w200" /></td>
 					</tr>
 					<tr>
 						<td style="width:130px;height:28px;" class="mdt15 mdb10">강의소개</td>
-						<td class="mdt15 mdb10"><form:input path="loginid"
-								class="input_w200" /></td>
+						<td class="mdt15 mdb10"><form:textarea path="LCTRE_INTRCN"
+								class="input_w600" style="height:150px;"/>
+							<br/>
+							<c:if test="${not empty saleModel.orgname}">
+									[<a href="javascript:downloadFile('<c:out value="${saleModel.filename}"/>', '<c:out value="${saleModel.orgname}"/>');"><c:out
+										value="${saleModel.orgname}" /></a>]
+							</c:if>
+						</td>
 					</tr>
 					<tr>
 						<td style="width:130px;height:28px;" class="mdt15 mdb10">마케팅 동의</td>
-						<td class="mdt15 mdb10"><form:input path="loginid"
+						<td class="mdt15 mdb10"><form:select path="agree3"
+							items="${saleModel.selectListYn}" itemLabel="text" itemValue="value"
 								class="input_w200" /></td>
 					</tr>
 					<tr>
 						<td style="width:130px;height:28px;" class="mdt15 mdb10">결과</td>
 						<td class="mdt15 mdb10"><form:select path="RESULT"
-							items="${saleModel.yesnoList}" itemLabel="text" itemValue="value"
-								class="input_w200" /></td>
+							items="${saleModel.selectListYn}" itemLabel="text" itemValue="value"
+								class="input_w200" />
+							</td>
 					</tr>
 					
 				</table>

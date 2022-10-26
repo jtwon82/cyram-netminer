@@ -16,6 +16,7 @@ import com.cyframe.model.MultipartModel;
 import com.cyframe.model.SelectBoxModel;
 import com.cyframe.property.PropertyServiceIf;
 import com.netminer.common.mail.model.MailModel;
+import com.netminer.common.nation.service.NationServiceIf;
 import com.netminer.common.util.DateUtil;
 import com.netminer.common.util.FileUtil;
 import com.netminer.common.util.MailMessageUtil;
@@ -70,6 +71,9 @@ public class SaleService implements SaleServiceIf {
 	
 	@Inject
 	private PaymentServiceIf paymentService;
+
+	@Inject
+	private NationServiceIf nationService;
 	
 	@Override
 	public String create(SaleModel model) throws Exception {
@@ -1274,46 +1278,19 @@ public class SaleService implements SaleServiceIf {
 		} else {
 			rModel = (SaleModel) ModelConverterUtil.convert(model, rModel);
 		}
-//		
-//		//license usages, terms, sizes
-//		rModel.setLicenseusagesList(licenseService.readList_usages(rModel.getProductid()));
-//		rModel.setLicensetermsList(licenseService.readList_terms(rModel.getProductid()));
-//		rModel.setLicensesizesList(licenseService.readList_sizes(rModel.getProductid()));
-//		
-//		rModel.setEditionList(this.setEditionModelList(rModel));
-//		// country list
-//		rModel.setCountryList(licenseService.readList_terms(rModel.getProductid()));
-//		
-//		//product package
-//		List<ProductpackageModel> productpackageModelList = this.setProductpackageModelList(rModel);
-//		
-//		//sale package
-//		this.setPackages(rModel, productpackageModelList);
-//		
-//		ExtensionModel[] purchasedExtensions = getExtensionsArray(rModel.getProductserial(), rModel.getLicenseusage());
-//		String[] extensionIds = new String[purchasedExtensions.length];
-//		for(int i = 0; i < purchasedExtensions.length; i++) {
-//			extensionIds[i] = purchasedExtensions[i].getExtensionId();
-//		}
-//		rModel.setExtensions(extensionIds);
-//		rModel.setExtensionNames(Arrays.stream(purchasedExtensions).map(e -> e.getLabel()).collect(Collectors.joining(", ")));
-//		
-//		this.setAvailableExtensions(rModel, purchasedExtensions);
-//		
-//		//next_productserial
-//		SaleModel npModel = saleDao.read_next_productserial();
-//		rModel.setNext_productserial(npModel.getNext_productserial());
-//		
-//		//Next_hardwarekey
-//		rModel.setNext_hardwarekey(String.valueOf(this._setHardwareKey()));
-//		
-//		//proof
-//		this.setAcademicstatus(rModel);
-//		
-//		//payment
-//		this.setPayment(rModel);
+		rModel.setNationList(nationService.readList(model));
 		
 		return rModel;
+	}
+
+	@Override
+	public void updateFree(SaleModel model) throws Exception {
+		saleDao.updateFree(model);
+	}
+
+	@Override
+	public void deleteFree(SaleModel model) throws Exception {
+		saleDao.deleteFree(model);
 	}
 
 }

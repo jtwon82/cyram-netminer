@@ -625,7 +625,7 @@ Table Relation Style
 .buybox08 ul li { list-style:none;  display:inline-block;list-style:none; }
 .buybox08 ul li a{ text-decoration:underline; color:#006699 }
 .buybox08 dl dt { display:inline-block; margin-left:30px; float:left}
-.buybox08 span { display:inline-block}
+.buybox08 span { /*display:inline-block*/ }
 
 .buybox10 { width:826px; ;float:left/*노티스정렬추가*/; margin:0px 0 0 0; /*background:#dbdbdb;*/ padding:10px 5px 10px;/* border-top:1px solid #cfcfcf*/}
 .buybox10 h1{ color:#338700; font-size:18px; font-weight:bold; margin-bottom:12px;}

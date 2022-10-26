@@ -423,3 +423,35 @@ var mainSet = {
 	}
 }
 
+Number.prototype.isBetween = function(min, max, notBoundaries) {
+    var between = false;
+    if (notBoundaries) {
+        if ((this < max) && (this > min)) between = true;
+//        alert('notBoundaries');
+    } else {
+        if ((this <= max) && (this >= min)) between = true;
+//        alert('Boundaries');
+    }
+//    alert('here');
+    return between;
+}
+
+jQuery.fn.serializeObject = function() {
+	    var obj = null;
+	    try {
+	        if (this[0].tagName && this[0].tagName.toUpperCase() == "FORM") {
+	            var arr = this.serializeArray();
+	            if (arr) {
+	                obj = {};
+	                jQuery.each(arr, function() {
+	                    obj[this.name] = this.value;
+	                });
+	            }//if ( arr ) {
+	        }
+	    } catch (e) {
+	        alert(e.message);
+	    } finally {
+	    }
+	 
+	    return obj;
+	};

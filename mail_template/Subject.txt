@@ -36,3 +36,5 @@ Upgrade_Version=NetMiner 견적문의_버전업
 Upgrade_Version_kor=NetMiner 견적문의_버전업
 NewPassword=[NetMiner website] Forgot password
 NewPassword_kor=비밀번호 변경 안내
+ApplyFreeEdition=수업용 라이선스 신청
+ApplyFreeEdition_Kor=수업용 라이선스 신청

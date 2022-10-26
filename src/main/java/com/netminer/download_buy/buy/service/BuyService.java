@@ -347,31 +347,43 @@ public class BuyService implements BuyServiceIf {
 		} finally {
 		}
 	}
+	private void sendMailFree(SaleModel model, String saleid) {
+
+		try {
+			SaleModel saleModel = new SaleModel();
+			saleModel.setSaleid(saleid);
+
+			saleModel = saleService.readFree(saleModel);
+			saleModel.setKor(model.isKor());
+
+			MailModel mailModel = new MailModel();
+			mailModel.setKor(model.isKor());
+			mailModel.setHtml(model.isKor());
+
+			// 관리자에게
+			mailModel = new MailModel();
+			mailModel.setKor(false);
+			mailModel.setHtml(false);
+
+			mailModel.setToEmail(propertyService.getString("manager.mail.id"));
+			
+			mailModel.setSubject(MailMessageUtil.generateSubject(saleModel,
+					propertyService.getString("mail.subject.Path"), "ApplyFreeEdition"));
+			
+			mailModel.setMessage(MailMessageUtil.generateContents(saleModel,
+					propertyService.getString("mail.template.Path") + "ApplyFreeEdition"));
+			
+			mailSender.notify(mailModel);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}
+	}
 
 
 	@Override
 	public SaleModel readFree(SaleModel model) throws Exception {
-//		LicenseModel licenseModel = new LicenseModel();
-//		licenseModel.setLicensetype(model.getLicenseusage());
-//		List<SelectBoxModel> termsList = licenseService.readList_termsByType(licenseModel);
-//		List<SelectBoxModel> sizesList = licenseService.readList_sizesByType(licenseModel);
-
-//		model.setLicensetermsList(termsList);
-//		model.setLicensesizesList(sizesList);
-
-//		List<SelectBoxModel> countryList = saleService.readList_country();
-//		model.setCountryList(countryList);
-//
-//		NmUserModel nmUserModel = new NmUserModel();
-//		nmUserModel.setLoginid(sessionService.getSessionModel().getSessionId());
-//		nmUserModel = nmUserService.read(nmUserModel);
-//		model.setEmail(nmUserModel.getEmail());
-//
-//		if ("2".equals(model.getLicenseusage())) {
-//			model.setQtyList(30);
-//		} else {
-//			model.setQtyList(1);
-//		}
 		
 		if("".equals(model.getSaleid())) {
 			model.setNationList(nationService.readList(model));
@@ -415,6 +427,8 @@ public class BuyService implements BuyServiceIf {
 		log.info(String.format("free create 2 model %s", model));
 		
 		saleDao.createFree(model);
+
+		this.sendMailFree(model, model.getSaleid());
 		
 		return model;
 	}

@@ -40,5 +40,7 @@ public interface SaleServiceIf {
 
 	public List<SaleModel> readFreeList(SaleModel model) throws Exception;
 	public SaleModel readFree(SaleModel model) throws Exception;
+	public void updateFree(SaleModel model) throws Exception;
+	public void deleteFree(SaleModel model) throws Exception;
 
 }
