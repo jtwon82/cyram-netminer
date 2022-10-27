@@ -875,10 +875,10 @@ public class SaleModel extends CyframeModel implements Cloneable {
 		selectBoxFreeSearchFld = new ArrayList<SelectBoxModel>();
 		// 성함, 국가, 소속 기관, 소속 학과, 이메일, 강의명
 		selectBoxFreeSearchFld.add(new SelectBoxModel("성함","APPLCNT_NM"));
-		selectBoxFreeSearchFld.add(new SelectBoxModel("국가","NATION_CODE"));
+		selectBoxFreeSearchFld.add(new SelectBoxModel("국가","NATION_NAME_KR"));
 		selectBoxFreeSearchFld.add(new SelectBoxModel("소속기관","PSITN_INSTT"));
 		selectBoxFreeSearchFld.add(new SelectBoxModel("이메일","CHARGER_EMAIL"));
-		selectBoxFreeSearchFld.add(new SelectBoxModel("강의","LCTRE_INTRCN"));
+		selectBoxFreeSearchFld.add(new SelectBoxModel("강의명","LCTRE_NM"));
 		return selectBoxFreeSearchFld;
 	}
 	public List<SelectBoxModel> getSelectListYn() {

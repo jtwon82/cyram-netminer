@@ -1,8 +1,6 @@
 package com.netminer.manager.sale.controller;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,10 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.cyframe.controller.CyframeController;
 import com.cyframe.model.ConstantModel;
@@ -267,10 +265,43 @@ public class SaleController extends CyframeController {
 		
 		return "/manager/sale/free-readList";
 	}
+
+	@RequestMapping("/common/download_excel-read.do")
+	public ModelAndView readFreeListExcel(SaleModel saleModel, ModelAndView model, HttpServletResponse response) throws Exception {
+		String s_year = saleModel.getS_year();
+		
+		if(s_year == null || "".equals(s_year)) {
+			String today = DateUtil.dailyformat();
+			
+			saleModel.setS_year(today.substring(0, 4));
+			saleModel.setS_month(today.substring(4, 6));
+			saleModel.setS_day(today.substring(6, 8));
+			
+			saleModel.setE_year(today.substring(0, 4));
+			saleModel.setE_month(today.substring(4, 6));
+			saleModel.setE_day(today.substring(6, 8));
+		}
+
+		saleModel.setListCount(1000000);
+		
+		List<SaleModel> list = saleService.readFreeList(saleModel);
+
+		model.addObject("saleModel", saleModel);
+		model.addObject("list", list);
+		model.addObject("moveLinkPageScript", PageNavigationTagUtil.getMoveLinkPageScript("saleModel"));
+		model.addObject("moveLinkPagePrint", PageNavigationTagUtil.getMoveLinkPagePrint(saleModel.getListCount(), propertyService.getInt("manager.board.page.count"), saleModel.getTotalCount(), saleModel.getPageNo()));
+		
+		response.setHeader("Content-Disposition", String.format("attachment; filename=free-readList.%s.xls", DateUtil.getDate("yyyy-MM-dd", new Date())));
+		response.setHeader("Content-Type", "application/vnd.ms-excel; charset=utf-8");
+		
+		model.setViewName("/common/excel_downLoad");
+		
+		return model;
+	}
 	
 
-	@RequestMapping(value="/common/download_excel-read.do")
-	public void readFreeListExcel(SaleModel saleModel
+	@RequestMapping(value="/common/download_excel2-read.do")
+	public void readFreeListExcel2(SaleModel saleModel
 			, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String s_year = saleModel.getS_year();
 		

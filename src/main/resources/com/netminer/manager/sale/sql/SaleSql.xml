@@ -646,10 +646,10 @@
 		</isEqual>
 		<isNotEmpty property="searchWord">
 			<isEqual property="searchKind" compareValue="APPLCNT_NM">AND A.APPLCNT_NM LIKE CONCAT('%',#searchWord#,'%')</isEqual>
-			<isEqual property="searchKind" compareValue="NATION_CODE">AND A.NATION_CODE LIKE CONCAT('%',#searchWord#,'%')</isEqual>
+			<isEqual property="searchKind" compareValue="NATION_NAME_KR">AND NATION_NAME_KR LIKE CONCAT('%',#searchWord#,'%')</isEqual>
 			<isEqual property="searchKind" compareValue="PSITN_INSTT">AND A.PSITN_INSTT LIKE CONCAT('%',#searchWord#,'%')</isEqual>
 			<isEqual property="searchKind" compareValue="CHARGER_EMAIL">AND A.CHARGER_EMAIL LIKE CONCAT('%',#searchWord#,'%')</isEqual>
-			<isEqual property="searchKind" compareValue="LCTRE_INTRCN">AND A.LCTRE_INTRCN LIKE CONCAT('%',#searchWord#,'%')</isEqual>
+			<isEqual property="searchKind" compareValue="LCTRE_NM">AND A.LCTRE_NM LIKE CONCAT('%',#searchWord#,'%')</isEqual>
 		</isNotEmpty>
 	</sql>
 	<select id="SaleDao.readFreeTotal" 
