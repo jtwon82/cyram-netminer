@@ -1,3 +1,11 @@
+/.gradle/
 /.settings/
+.settings/
 /target/
+target/
 /bin/
+bin/
+/bin/**
+bin/**
+/build/
+build/
