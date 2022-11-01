@@ -139,9 +139,9 @@ Free Educational License must only be used for teaching.
 				</table>
 							</li>
 							<li class=" font12_black" style="padding:20px 0;">
-								<input type='checkbox' id="agree" name="agree" class="" value="Y" /> Agree to All<br/>
+<!-- 								<input type='checkbox' id="agree" name="agree" class="" value="Y" /> Agree to All<br/> -->
 								<input type='checkbox' id="agree2" name="agree2" class="agree" value="Y" /> I agree to use my personal information for applying 'Free Education' with the privacy policy *<br/>
-								<input type='checkbox' id="agree3" name="agree3" class="agree" value="Y" /> I agree to receive informations and commercial offers by email<br/>
+<!-- 								<input type='checkbox' id="agree3" name="agree3" class="agree" value="Y" /> I agree to receive informations and commercial offers by email<br/> -->
 							</li>
 							<li class="mdl300">
 								<a href="javascript:fn_Request_kr();"><img src="/images/sub/btn_request.gif" alt="Request"/></a>

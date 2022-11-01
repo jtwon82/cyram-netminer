@@ -141,9 +141,9 @@
 				</table>
 							</li>
 							<li class=" font12_black" style="padding:20px 0;">
-								<input type='checkbox' id="agree" name="agree" class="" value="Y" /> 모두 동의<br/>
+<!-- 								<input type='checkbox' id="agree" name="agree" class="" value="Y" /> 모두 동의<br/> -->
 								<input type='checkbox' id="agree2" name="agree2" class="agree" value="Y" /> 개인정보보호정책에 따라 귀하의 개인 정보를 서비스 제공 목적으로 활용하는 것에 동의합니다 . *<br/>
-								<input type='checkbox' id="agree3" name="agree3" class="agree" value="Y" /> 유용한 정보 , 혜택 안내 등을 위한 이메일 수신에 동의합니다.<br/>
+<!-- 								<input type='checkbox' id="agree3" name="agree3" class="agree" value="Y" /> 유용한 정보 , 혜택 안내 등을 위한 이메일 수신에 동의합니다.<br/> -->
 							</li>
 							<li class="mdl300">
 								<a href="javascript:fn_Request_kr();"><img src="/images/sub/btn_request.gif" alt="Request"/></a>
