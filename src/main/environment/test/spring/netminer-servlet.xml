@@ -49,11 +49,7 @@
 		<property name="maxInMemorySize" value="100000000" />
 	</bean>
  	-->
-	
-	<bean id="viewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
-	    <property name="order" value="0"></property>
-	</bean>
-	
+ 		
 	<context:component-scan base-package="com" />
 
 	<aop:aspectj-autoproxy />

@@ -28,7 +28,7 @@
 		<tbody>
 			<c:if test="${not empty list }">
 				<c:forEach items="${list }" var="item" varStatus="status">
-					<tr>
+					<tr height=40>
 							<td>${item.saledate}</td>
 							<td>${item.APPLCNT_NM}</td>
 							<td>${item.NATION_NAME_KR}</td>
@@ -37,7 +37,7 @@
 							<td>${item.CHARGER_EMAIL}</td>
 							<td>${item.LCTRE_NM}</td>
 							<td>${item.ATNLC_NMPR}</td>
-							<td>[상세보기]</td>
+							<td>${item.LCTRE_INTRCN}</td>
 							<td>${item.orgname}</td>
 							<td>${item.agree3}</td>
 							<td>${item.RESULT}</td>

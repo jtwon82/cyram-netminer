@@ -49,6 +49,7 @@
 	}
 	function checkVal(){
 		var f= document.saleModel;
+		var inputVal= parseInt(f.ATNLC_NMPR.value);
 
 		if(f.APPLCNT_NM.value==''){	alert("신청자이름 을 입력해주세요."); f.APPLCNT_NM.focus();	return false;	}
 		if(f.PSITN_INSTT.value==''){	alert("소속기관 을 입력해주세요."); f.PSITN_INSTT.focus(); return false;	}
@@ -57,6 +58,7 @@
 		if(f.LCTRE_NM.value==''){	alert("강의이름 을 입력해주세요."); f.LCTRE_NM.focus();	return false;	}
 		if(f.ATNLC_NMPR.value==''){	alert("수강인원 을 입력해주세요."); f.ATNLC_NMPR.focus();	return false;	}
 // 		if(f.LCTRE_INTRCN.value==''){	alert("강의소개 을 입력해주세요."); f.LCTRE_INTRCN.focus();	return false;	}
+		if(inputVal.isBetween(5,100)==false){		alert("수강인원은 5~100으로 입력해주세요.");		f.ATNLC_NMPR.focus();	return false;	}
 
 		var chkCnt= 0;
 		if(f.LCTRE_INTRCN.value.trim()==''){		chkCnt++;	}
@@ -171,16 +173,16 @@
 			$("#agree").prop("checked", false);
 		}
 	});
-	$("#ATNLC_NMPR").bind("keyup", function(){
-		var inputVal= parseInt(this.value);
-		console.log( inputVal.isBetween(5,100) );
-		if(inputVal.isBetween(5,100)==false){
-			if(this.value>100)
-				this.value= 100;
-			else
-				this.value= 5;
-		}
-	});
+// 	$("#ATNLC_NMPR").bind("keyup", function(){
+// 		var inputVal= parseInt(this.value);
+// 		console.log( inputVal.isBetween(5,100) );
+// 		if(inputVal.isBetween(5,100)==false){
+// 			if(this.value>100)
+// 				this.value= 100;
+// 			else
+// 				this.value= 5;
+// 		}
+// 	});
 	if('${popup}'=='popup'){
 		$("body").html('${saleModel.LCTRE_INTRCN}');
 	}

@@ -15,7 +15,7 @@
 	</appender>
 	
 	<appender name="file" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="File" value="logs/netminer.log"/>
+		<param name="File" value="/usr/local/tomcat/logs/netminer.log"/>
 		<param name="Append" value="true" />
 		<param name="DatePattern" value="'.'yyMMdd" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -25,7 +25,7 @@
 
  	<logger name="org.springframework">
 		<level value="info" />
-		<appender-ref ref="stdout" />	
+<!-- 		<appender-ref ref="stdout" />	 -->
 	</logger>
 
 	<logger name="com.ibatis">
@@ -34,13 +34,13 @@
 
 	<logger name="java.sql">
 		<level value="DEBUG" />
-		<appender-ref ref="stdout" />	
+<!-- 		<appender-ref ref="stdout" />	 -->
 	</logger>
 
   	<root>
 		<level value="info" />
 		<appender-ref ref="stdout" />
-<!-- 		<appender-ref ref="file" /> -->
+		<appender-ref ref="file" />
 	</root>
 
 </log4j:configuration>

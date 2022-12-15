@@ -48,6 +48,7 @@
 	}
 	function checkVal(){
 		var f= document.saleModel;
+		var inputVal= parseInt(f.ATNLC_NMPR.value);
 
 		if(f.APPLCNT_NM.value==''){	alert("Please complete all fields."); f.APPLCNT_NM.focus();	return false;	}
 		if(f.PSITN_INSTT.value==''){	alert("Please complete all fields."); f.PSITN_INSTT.focus(); return false;	}
@@ -56,11 +57,12 @@
 		if(f.LCTRE_NM.value==''){	alert("Please complete all fields."); f.LCTRE_NM.focus();	return false;	}
 		if(f.ATNLC_NMPR.value==''){	alert("Please complete all fields."); f.ATNLC_NMPR.focus();	return false;	}
 // 		if(f.LCTRE_INTRCN.value==''){	alert("Please complete all fields."); f.LCTRE_INTRCN.focus();	return false;	}
+		if(inputVal.isBetween(5,100)==false){		alert("Number of users' must be between 5 and 100.");		f.ATNLC_NMPR.focus();	return false;	}
 
 		var chkCnt= 0;
 		if(f.LCTRE_INTRCN.value.trim()==''){		chkCnt++;	}
 		if(f.attach_files.value.trim()==''){		chkCnt++;	}
-		if(chkCnt>1){	alert("Please agree to using your personal data with our privacy policy.");	return false;	}
+		if(chkCnt>1){	alert("Please enter the course description or attachments.");	return false;	}
 		
 		if(!f.agree2.checked){		alert("Please agree to using your personal data with our privacy policy.");	return false;	}
 		//if(!f.agree3){		return false;	}
@@ -169,16 +171,16 @@ Free Educational License must only be used for teaching.
 			$("#agree").prop("checked", false);
 		}
 	});
-	$("#ATNLC_NMPR").bind("keyup", function(){
-		var inputVal= parseInt(this.value);
-		console.log( inputVal.isBetween(5,100) );
-		if(inputVal.isBetween(5,100)==false){
-			if(this.value>100)
-				this.value= 100;
-			else
-				this.value= 5;
-		}
-	});
+// 	$("#ATNLC_NMPR").bind("keyup", function(){
+// 		var inputVal= parseInt(this.value);
+// 		console.log( inputVal.isBetween(5,100) );
+// 		if(inputVal.isBetween(5,100)==false){
+// 			if(this.value>100)
+// 				this.value= 100;
+// 			else
+// 				this.value= 5;
+// 		}
+// 	});
 	if('${popup}'=='popup'){
 		$("body").html('${saleModel.LCTRE_INTRCN}');
 	}

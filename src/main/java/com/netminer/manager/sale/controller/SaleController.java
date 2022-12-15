@@ -1,6 +1,7 @@
 package com.netminer.manager.sale.controller;
 
 import java.io.ByteArrayInputStream;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -268,6 +269,8 @@ public class SaleController extends CyframeController {
 
 	@RequestMapping("/common/download_excel-read.do")
 	public ModelAndView readFreeListExcel(SaleModel saleModel, ModelAndView model, HttpServletResponse response) throws Exception {
+		saleModel.setSearchWord(URLDecoder.decode(saleModel.getSearchWord(),"UTF-8"));
+		
 		String s_year = saleModel.getS_year();
 		
 		if(s_year == null || "".equals(s_year)) {

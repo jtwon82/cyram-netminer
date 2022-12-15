@@ -17,6 +17,7 @@
 	<sqlMap resource="com/netminer/manager/academicstatus/sql/AcademicstatusSql.xml" />
 	<sqlMap resource="com/netminer/manager/payment/sql/PaymentSql.xml" />
 	<sqlMap resource="com/netminer/manager/extension/sql/ExtensionSql.xml" />
+	<sqlMap resource="com/netminer/manager/nation/sql/NationSql.xml" />
 	
 	<sqlMap resource="com/netminer/download_buy/buy/sql/BuySql.xml" />
 </sqlMapConfig>

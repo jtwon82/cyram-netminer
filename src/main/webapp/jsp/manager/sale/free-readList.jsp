@@ -53,11 +53,16 @@
 		$(formData).appendTo('body').submit().remove();
 	}
 	function downloadExcel() {
+		var f= document.saleModel
+		
+		f.searchWord.value= encodeURIComponent(f.searchWord.value);
+		
 		$("body").append("<iframe name='filedownload' style = 'width:0px;height0px;display:none'></iframe>");
 		var formData = "<form name='attachFileModel' method = 'post' target = 'filedownload' "
 				+ " action = '/common/download_excel-read.do?"
 				+ $("#saleModel").serialize() +"'></form>";
 		$(formData).appendTo('body').submit().remove();
+		f.searchWord.value= decodeURIComponent(f.searchWord.value);
 	}
 </script>
 
@@ -70,7 +75,7 @@
 		<div class="btitle">수업용 신청 내역</div>
 		<!--//타이틀-->
 
-		<form:form commandName="saleModel"
+		<form:form commandName="saleModel" name="saleModel"
 			action="/manager/sale/free-readList.do">
 			<form:hidden path="pageNo" />
 			<form:hidden path="saleid" />
